@@ -49,12 +49,10 @@
         <div class="content" data-aos="fade-up">
             <h1>Eyo, willkommen auf <span class="rainbow-text">meiner Website</span> :D</h1>
             <p class="description">
-                Die Website gibt mir die Möglichkeit ein paar Sachen zu entwickeln, welche du testen kannst. Zudem findest du so ein wenig über mich heraus ;D<br><br>
-                Wenn du einen Bug gefunden hast oder sonstiges, fühl dich frei mich zu kontaktieren.
+                Die Website gibt mir die Möglichkeit ein paar Sachen zu entwickeln, welche du testen kannst. Zudem findest du so ein wenig über mich heraus ;D
             </p>
             <div class="buttons">
                 <a href="#sport" class="btn-main">Entdecken</a>
-                <a href="#contact" class="btn-secondary">Frage oder Bug? :)</a>
             </div>
         </div>
     </section>
@@ -65,49 +63,49 @@
         
         <!-- Hauptdisziplinen -->
         <div class="subsection" data-aos="fade-up">
-            <h3>Hauptdisziplinen</h3>
+            <h3>Meine Favorites</h3>
             <div class="card-container-grid">
-                <!-- Thaiboxen steht nun an 1. Stelle -->
+                <!-- Thaiboxen steht an 1. Stelle -->
                 <div class="card card-fight" onclick="openPopup('Thaiboxen', 'fight')">
                     <div class="card-glow"></div>
-                    <h4>🥊 Thaiboxen</h4>
-                    <p>Fokus, Disziplin und maximale körperliche Fitness.</p>
+                    <h4>Thaiboxen</h4>
+                    <p>Fokus, Disziplin & körperliche Fitness</p>
                     <span class="card-action">Details & Stats →</span>
                 </div>
-                <!-- Eishockey steht nun an 2. Stelle -->
+                <!-- Eishockey steht an 2. Stelle -->
                 <div class="card card-ice" onclick="openPopup('Eishockey', 'ice')">
                     <div class="card-glow"></div>
                     <h4>❄️ Eishockey</h4>
-                    <p>Schnelligkeit, Härte und Teamgeist auf dem Eis.</p>
+                    <p>Schnelligkeit, Härte & Teamgeist auf dem Eis</p>
                     <span class="card-action">Details & Stats →</span>
                 </div>
             </div>
         </div>
 
-        <!-- Interaktiver Trainingsplaner (Jetzt ein- und ausklappbar!) -->
+        <!-- Interaktiver Trainingsplaner -->
         <div class="interactive-box collapsible-box" data-aos="fade-up">
             <div class="box-header" onclick="toggleCollapsible('workout-collapsible')">
-                <h3>⚡ Interaktiver Trainingsplaner</h3>
+                <h3>Fitnesstests</h3>
                 <span class="toggle-icon" id="workout-collapsible-icon">▼</span>
             </div>
             <div id="workout-collapsible" class="collapsible-content">
-                <p class="box-desc">Wähle dein Ziel und generiere ein schnelles Workout basierend auf meinen Routinen. Abgehakte Übungen werden durchgestrichen!</p>
+                <p class="box-desc">Hier findest du zwei kleine Fitnesstests, basierend auf meinen Routinen. Abgehakte Übungen werden durchgestrichen :D</p>
                 <div class="workout-selector">
-                    <button class="workout-btn active" onclick="generateWorkout('boxing')">Muay Thai (Kondition)</button>
-                    <button class="workout-btn" onclick="generateWorkout('hockey')">Eishockey (Beinkraft)</button>
+                    <button class="workout-btn active" onclick="generateWorkout('boxing')">Muay Thai (Muskelausdauer)</button>
+                    <button class="workout-btn" onclick="generateWorkout('hockey')">Eishockey (Explosivität)</button>
                 </div>
                 <div id="workout-output" class="workout-display"></div>
             </div>
         </div>
 
-        <!-- Nebensportarten & Hobbies (Ebenfalls ein- und ausklappbar!) -->
+        <!-- Nebensportarten & Hobbies -->
         <div class="subsection collapsible-box" data-aos="fade-up">
             <div class="box-header" onclick="toggleCollapsible('hobbies-collapsible')">
-                <h3>Nebensportarten & Hobbies</h3>
+                <h3>Nebensportarten & weitere Hobbies</h3>
                 <span class="toggle-icon" id="hobbies-collapsible-icon">▼</span>
             </div>
             <div id="hobbies-collapsible" class="collapsible-content">
-                <p class="box-desc">Hier ist mein persönliches Ranking meiner Nebensportarten und Hobbies:</p>
+                <p class="box-desc">Hier sind ein paar meiner Nebensportarten und Hobbies:</p>
                 <div class="hobby-tag-container ranked-list">
                     <span class="tag"><span class="rank-num">1</span> 🏐 Volleyball</span>
                     <span class="tag"><span class="rank-num">2</span> 🏀 Basketball</span>
@@ -186,36 +184,36 @@
     <!-- TIERE SECTION -->
     <section id="tiere" class="theme-section" data-theme="tiere">
         <h2 class="rainbow-text" data-aos="fade-up">Lieblingstiere</h2>
-        <p class="section-intro">Tippe auf ein Tier, um ihm einen virtuellen "Snack-Vibe" zu schenken!</p>
+        <p class="section-intro">Füttere die Tiere bis sie platzen! XD</p>
         <div class="animal-grid">
             <div class="animal-card" data-aos="zoom-in" onclick="feedAnimal('panda', '🐼', this)">
                 <div class="animal-emoji">🐼</div>
                 <h4>Roter Panda</h4>
-                <p>Klettermeister & flauschig.</p>
+                <p>Hungrif, süß & flauschig</p>
                 <button class="feed-btn">🎋 Füttern (<span id="feed-panda">0</span>)</button>
             </div>
             <div class="animal-card" data-aos="zoom-in" data-aos-delay="100" onclick="feedAnimal('katze', '🐈', this)">
                 <div class="animal-emoji">🐈</div>
                 <h4>Katze</h4>
-                <p>Elegant, unabhängig & schläfrig.</p>
+                <p>Elegant, super süß & verspielt</p>
                 <button class="feed-btn">🐟 Füttern (<span id="feed-katze">0</span>)</button>
             </div>
             <div class="animal-card" data-aos="zoom-in" data-aos-delay="200" onclick="feedAnimal('panther', '🐈‍⬛', this)">
                 <div class="animal-emoji">🐈‍⬛</div>
                 <h4>Panther</h4>
-                <p>Kraftvoll, mystisch & elegant.</p>
+                <p>Kraftvoll, mystisch & elegant</p>
                 <button class="feed-btn">🍖 Füttern (<span id="feed-panther">0</span>)</button>
             </div>
             <div class="animal-card" data-aos="zoom-in" data-aos-delay="300" onclick="feedAnimal('axolotl', '🦎', this)">
                 <div class="animal-emoji">🦎</div>
                 <h4>Axolotl</h4>
-                <p>Das ewig lächelnde Wesen.</p>
+                <p>Das ewig lächelnde Wesen</p>
                 <button class="feed-btn">🦐 Füttern (<span id="feed-axolotl">0</span>)</button>
             </div>
             <div class="animal-card" data-aos="zoom-in" data-aos-delay="400" onclick="feedAnimal('gorilla', '🦍', this)">
                 <div class="animal-emoji">🦍</div>
                 <h4>Gorilla</h4>
-                <p>Klug, friedfertig & bärenstark.</p>
+                <p>Klug, friedfertig & einfach affenstark</p>
                 <button class="feed-btn">🍌 Füttern (<span id="feed-gorilla">0</span>)</button>
             </div>
         </div>
@@ -244,9 +242,9 @@
             </div>
             <div class="ticket-dispenser">
                 <div class="ticket" id="movie-ticket">
-                    <div class="ticket-stub"><span>COZEY CINEMAS</span><div class="barcode"></div></div>
+                    <div class="ticket-stub"><span>PHILIPP'S CINEMA</span><div class="barcode"></div></div>
                     <div class="ticket-content">
-                        <span class="ticket-label">MOVIE RECOMMENDATION</span>
+                        <span class="ticket-label">HEUTIGE EMPFEHLUNG</span>
                         <h4 id="ticket-title">Bereit?</h4>
                         <p id="ticket-quote">"Zieh am Hebel!"</p>
                     </div>
