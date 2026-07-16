@@ -1,0 +1,307 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CozeyVibes — Portfolio</title>
+    <!-- Favicon-Platzhalter gegen 404-Fehler -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+</head>
+<body data-theme="space">
+
+<!-- Dynamischer Hintergrund-Canvas -->
+<canvas id="ambient-canvas"></canvas>
+<div class="layer-blur"></div>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="logo rainbow-text">CozeyVibes</div>
+    <div class="nav-links">
+        <a href="#home" class="nav-item active">Home</a>
+        <a href="#sport" class="nav-item">Sport</a>
+        <a href="#musik" class="nav-item">Musik</a>
+        <a href="#game" class="nav-item">Playground</a>
+        <a href="#tiere" class="nav-item">Tiere</a>
+        <a href="#filme" class="nav-item">Filme</a>
+        <a href="#contact" class="nav-item">Contact</a>
+    </div>
+</header>
+
+<!-- HAMBURGER & MOBILE SIDEBAR -->
+<div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+<div class="sidebar mobile" id="mobileSidebar">
+    <div class="close-btn" id="closeBtn">✕</div>
+    <a href="#home">Home</a>
+    <a href="#sport">Sport</a>
+    <a href="#musik">Musik</a>
+    <a href="#game">Playground</a>
+    <a href="#tiere">Tiere</a>
+    <a href="#filme">Filme</a>
+    <a href="#contact">Contact</a>
+</div>
+
+<div class="container">
+    <!-- HERO SECTION -->
+    <section id="home" class="hero-section" data-theme="space">
+        <div class="content" data-aos="fade-up">
+            <h1>Eyo, willkommen auf <span class="rainbow-text">meiner Website</span> :D</h1>
+            <p class="description">
+                Die Website gibt mir die Möglichkeit ein paar Sachen zu entwickeln, welche du testen kannst. Zudem findest du so ein wenig über mich heraus ;D<br><br>
+                Wenn du einen Bug gefunden hast oder sonstiges, fühl dich frei mich zu kontaktieren.
+            </p>
+            <div class="buttons">
+                <a href="#sport" class="btn-main">Entdecken</a>
+                <a href="#contact" class="btn-secondary">Frage oder Bug? :)</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPORT SECTION -->
+    <section id="sport" class="theme-section" data-theme="sport">
+        <h2 class="rainbow-text" data-aos="fade-up">Sport</h2>
+        
+        <!-- Hauptdisziplinen -->
+        <div class="subsection" data-aos="fade-up">
+            <h3>Hauptdisziplinen</h3>
+            <div class="card-container-grid">
+                <!-- Thaiboxen steht nun an 1. Stelle -->
+                <div class="card card-fight" onclick="openPopup('Thaiboxen', 'fight')">
+                    <div class="card-glow"></div>
+                    <h4>🥊 Thaiboxen</h4>
+                    <p>Fokus, Disziplin und maximale körperliche Fitness.</p>
+                    <span class="card-action">Details & Stats →</span>
+                </div>
+                <!-- Eishockey steht nun an 2. Stelle -->
+                <div class="card card-ice" onclick="openPopup('Eishockey', 'ice')">
+                    <div class="card-glow"></div>
+                    <h4>❄️ Eishockey</h4>
+                    <p>Schnelligkeit, Härte und Teamgeist auf dem Eis.</p>
+                    <span class="card-action">Details & Stats →</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interaktiver Trainingsplaner (Jetzt ein- und ausklappbar!) -->
+        <div class="interactive-box collapsible-box" data-aos="fade-up">
+            <div class="box-header" onclick="toggleCollapsible('workout-collapsible')">
+                <h3>⚡ Interaktiver Trainingsplaner</h3>
+                <span class="toggle-icon" id="workout-collapsible-icon">▼</span>
+            </div>
+            <div id="workout-collapsible" class="collapsible-content">
+                <p class="box-desc">Wähle dein Ziel und generiere ein schnelles Workout basierend auf meinen Routinen. Abgehakte Übungen werden durchgestrichen!</p>
+                <div class="workout-selector">
+                    <button class="workout-btn active" onclick="generateWorkout('boxing')">Muay Thai (Kondition)</button>
+                    <button class="workout-btn" onclick="generateWorkout('hockey')">Eishockey (Beinkraft)</button>
+                </div>
+                <div id="workout-output" class="workout-display"></div>
+            </div>
+        </div>
+
+        <!-- Nebensportarten & Hobbies (Ebenfalls ein- und ausklappbar!) -->
+        <div class="subsection collapsible-box" data-aos="fade-up">
+            <div class="box-header" onclick="toggleCollapsible('hobbies-collapsible')">
+                <h3>Nebensportarten & Hobbies</h3>
+                <span class="toggle-icon" id="hobbies-collapsible-icon">▼</span>
+            </div>
+            <div id="hobbies-collapsible" class="collapsible-content">
+                <p class="box-desc">Hier ist mein persönliches Ranking meiner Nebensportarten und Hobbies:</p>
+                <div class="hobby-tag-container ranked-list">
+                    <span class="tag"><span class="rank-num">1</span> 🏐 Volleyball</span>
+                    <span class="tag"><span class="rank-num">2</span> 🏀 Basketball</span>
+                    <span class="tag"><span class="rank-num">3</span> 🧗‍♂️ Bouldern</span>
+                    <span class="tag"><span class="rank-num">4</span> 🏃‍♂️ Trail running</span>
+                    <span class="tag"><span class="rank-num">5</span> 🏃‍♂️ Joggen</span>
+                    <span class="tag"><span class="rank-num">6</span> 🥾 Wandern</span>
+                    <span class="tag"><span class="rank-num">7</span> ⚔️ Stockkampf</span>
+                    <span class="tag"><span class="rank-num">8</span> 🚴‍♂️ Rad fahren</span>
+                    <span class="tag"><span class="rank-num">9</span> 🏄‍♂️ Wildwasser SUP</span>
+                    <span class="tag"><span class="rank-num">10</span> 🏈 Flagfootball</span>
+                    <span class="tag"><span class="rank-num">11</span> ⚽ Fußball</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MUSIK SECTION -->
+    <section id="musik" class="theme-section" data-theme="musik">
+        <h2 class="rainbow-text" data-aos="fade-up">Musik</h2>
+        <div class="music-layout" data-aos="fade-up">
+            <div class="music-dashboard">
+                <div class="genre-selector" id="genre-selector-container"></div>
+                <div class="genre-display" id="genre-display-content"></div>
+            </div>
+            <div class="retro-player">
+                <div class="cassette-deck">
+                    <div class="reel reel-left" id="reel-l"></div>
+                    <div class="reel reel-right" id="reel-r"></div>
+                </div>
+                <div class="player-info">
+                    <div id="lyrics-container">
+                        <div class="lyrics-line placeholder">Wähle einen Song...</div>
+                    </div>
+                </div>
+                <div class="equalizer-bar-container" id="eq-container">
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                </div>
+                <div class="player-controls">
+                    <button class="player-btn" id="play-pause-btn" disabled>▶ PLAY</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEVELOPER MINI GAME SECTION -->
+    <section id="game" class="theme-section" data-theme="space">
+        <h2 class="rainbow-text" data-aos="fade-up">Bug Smasher Arcade</h2>
+        <p class="section-intro" data-aos="fade-up">Fehler im Code! Nutze die Steuerung, um die Bugs zu fixen!</p>
+        <div class="game-wrapper" data-aos="fade-up">
+            <div class="game-stats">
+                <div>Score: <span id="game-score">0</span></div>
+                <div>Bugs gefixt: <span id="game-bugs">0</span></div>
+            </div>
+            <div class="game-container" id="game-container">
+                <div class="game-start-screen" id="game-start-screen">
+                    <h3>👾 BUG SMASHER v1.0</h3>
+                    <p>Zerstöre den schlechten Code, bevor er dein Terminal zum Absturz bringt!</p>
+                    <button class="btn-main" onclick="startGame()">Start Game</button>
+                </div>
+                <div id="player-ship" class="player-ship hidden">&lt;/&gt;</div>
+            </div>
+            <!-- On-Screen Controls für Mobile -->
+            <div class="game-touch-controls" id="game-touch-controls">
+                <div id="joystick-zone" class="joystick-zone"></div>
+                <button id="touch-shoot">SHOOT</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIERE SECTION -->
+    <section id="tiere" class="theme-section" data-theme="tiere">
+        <h2 class="rainbow-text" data-aos="fade-up">Lieblingstiere</h2>
+        <p class="section-intro">Tippe auf ein Tier, um ihm einen virtuellen "Snack-Vibe" zu schenken!</p>
+        <div class="animal-grid">
+            <div class="animal-card" data-aos="zoom-in" onclick="feedAnimal('panda', '🐼', this)">
+                <div class="animal-emoji">🐼</div>
+                <h4>Roter Panda</h4>
+                <p>Klettermeister & flauschig.</p>
+                <button class="feed-btn">🎋 Füttern (<span id="feed-panda">0</span>)</button>
+            </div>
+            <div class="animal-card" data-aos="zoom-in" data-aos-delay="100" onclick="feedAnimal('katze', '🐈', this)">
+                <div class="animal-emoji">🐈</div>
+                <h4>Katze</h4>
+                <p>Elegant, unabhängig & schläfrig.</p>
+                <button class="feed-btn">🐟 Füttern (<span id="feed-katze">0</span>)</button>
+            </div>
+            <div class="animal-card" data-aos="zoom-in" data-aos-delay="200" onclick="feedAnimal('panther', '🐈‍⬛', this)">
+                <div class="animal-emoji">🐈‍⬛</div>
+                <h4>Panther</h4>
+                <p>Kraftvoll, mystisch & elegant.</p>
+                <button class="feed-btn">🍖 Füttern (<span id="feed-panther">0</span>)</button>
+            </div>
+            <div class="animal-card" data-aos="zoom-in" data-aos-delay="300" onclick="feedAnimal('axolotl', '🦎', this)">
+                <div class="animal-emoji">🦎</div>
+                <h4>Axolotl</h4>
+                <p>Das ewig lächelnde Wesen.</p>
+                <button class="feed-btn">🦐 Füttern (<span id="feed-axolotl">0</span>)</button>
+            </div>
+            <div class="animal-card" data-aos="zoom-in" data-aos-delay="400" onclick="feedAnimal('gorilla', '🦍', this)">
+                <div class="animal-emoji">🦍</div>
+                <h4>Gorilla</h4>
+                <p>Klug, friedfertig & bärenstark.</p>
+                <button class="feed-btn">🍌 Füttern (<span id="feed-gorilla">0</span>)</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FILME SECTION -->
+    <section id="filme" class="theme-section" data-theme="filme">
+        <h2 class="rainbow-text" data-aos="fade-up">Lieblingsfilme</h2>
+        <div class="movie-interactive-wrapper" data-aos="fade-up">
+            <div class="movie-info-side">
+                <p class="section-intro">Lust auf einen Filmabend? Zieh dir ein Kinoticket aus meiner Bestenliste oder wirf einen Blick auf mein persönliches Ranking!</p>
+                <button class="btn-main" onclick="spinMovieWheel()">🎬 Ticket ziehen</button>
+                
+                <!-- Neu: Top Filme Ranking direkt auf der linken Seite -->
+                <div class="movie-ranking-box">
+                    <h3>🏆 Meine Top Filme</h3>
+                    <ol class="ranking-list">
+                        <li><span class="rank-badge">1</span> <strong>Pulp Fiction</strong></li>
+                        <li><span class="rank-badge">2</span> <strong>The Big Lebowski</strong></li>
+                        <li><span class="rank-badge">3</span> <strong>Fight Club</strong></li>
+                        <li><span class="rank-badge">4</span> <strong>Gladiator</strong></li>
+                        <li><span class="rank-badge">5</span> <strong>Wall-E</strong></li>
+                        <li><span class="rank-badge">6</span> <strong>Django Unchained</strong></li>
+                    </ol>
+                </div>
+            </div>
+            <div class="ticket-dispenser">
+                <div class="ticket" id="movie-ticket">
+                    <div class="ticket-stub"><span>COZEY CINEMAS</span><div class="barcode"></div></div>
+                    <div class="ticket-content">
+                        <span class="ticket-label">MOVIE RECOMMENDATION</span>
+                        <h4 id="ticket-title">Bereit?</h4>
+                        <p id="ticket-quote">"Zieh am Hebel!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION 
+    <section id="contact" class="theme-section" data-theme="contact">
+        <h2 class="rainbow-text" data-aos="fade-up">Let's Connect</h2>
+        <div class="contact-box" data-aos="fade-up">
+            <div id="contact-success-state" class="success-screen hidden">
+                <div class="success-icon">🚀</div>
+                <h3>Nachricht abgefeuert!</h3>
+                <p>Danke dir! Ich melde mich in Rekordzeit bei dir zurück.</p>
+                <button class="btn-secondary" onclick="resetContactForm()">Nochmal senden</button>
+            </div>
+            <form class="contact-form" id="portfolio-contact-form" onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <input type="text" id="form-name" placeholder="Dein Name" required>
+                    <label for="form-name">Dein Name</label>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="form-email" placeholder="Deine E-Mail" required>
+                    <label for="form-email">Deine E-Mail</label>
+                </div>
+                <div class="form-group">
+                    <textarea id="form-msg" rows="4" placeholder="Deine Nachricht an mich..." required></textarea>
+                    <label for="form-msg">Deine Nachricht</label>
+                </div>
+                <button type="submit" class="btn-main send-btn-animate">Abschicken</button>
+            </form>
+        </div>
+    </section>
+</div>
+-->
+
+<!-- DYNAMISCHES POPUP -->
+<div id="custom-popup" class="popup-overlay">
+    <div class="popup-box">
+        <span class="close-popup" onclick="closePopup()">✕</span>
+        <div class="popup-header-img" id="popup-theme-header"></div>
+        <div class="popup-body">
+            <h3 id="popup-title">Sportart</h3>
+            <div class="popup-divider"></div>
+            <div id="popup-content-area"></div>
+        </div>
+    </div>
+</div>
+
+<!-- BIBLIOTHEKEN -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<!-- Joystick Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.10.1/nipplejs.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
