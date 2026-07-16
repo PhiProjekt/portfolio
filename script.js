@@ -296,7 +296,8 @@ const musicCatalog = {
         {
             artist: "Sido",
             tracks: [
-                { id: "bilder-im-kopf", title: "Bilder im Kopf" }
+                { id: "bilder-im-kopf", title: "Bilder im Kopf" },
+                { id: "maske", title: "Maske"}
             ]
         }
     ],
@@ -304,7 +305,11 @@ const musicCatalog = {
         {
             artist: "Limp Bizkit",
             tracks: [
-                { id: "nookie", title: "Nookie" }
+                { id: "nookie", title: "Nookie" },
+                { id: "break_stuff", title: "Break Stuff"},
+                { id: "my_way", title: "My Way" },
+                { id: "take_a_look_around", title: "Take A Look Around"},
+                { id: "rollin", title: "Rollin'"}
             ]
         }
     ],
