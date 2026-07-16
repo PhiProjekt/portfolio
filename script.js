@@ -186,7 +186,7 @@ function toggleArtistDropdown(id) {
     }
 }
 
-// Sport-Popup-Inhalte mit deinen exakten Daten
+// Sport-Popup-Inhalte mit exakten Daten
 function openPopup(sport, typeClass) {
     const popup = document.getElementById('custom-popup');
     const headerImg = document.getElementById('popup-theme-header');
@@ -199,19 +199,19 @@ function openPopup(sport, typeClass) {
         content.innerHTML = `
             <p style="margin-bottom: 1rem; line-height: 1.5;"><strong>❄️ Eishockey — Leidenschaft auf dem Eis</strong></p>
             <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 12px; font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.6rem;">
-                <p>📍 <strong>Position:</strong> 2010 - 2014 Torwart | 2014 - 2016 Verteidiger</p>
-                <p>🏆 <strong>Erfolge:</strong> Vizemeister Bezirksmeisterschaft Oberbayern 2016 (Slalom & Schnelllauf) | "2nd best Goalie in Camp"</p>
-                <p>🏒 <strong>Vereine:</strong> SC Riessersee (SCR) | Augsburger Panther (AEV)</p>
-                <p>⚡ <strong>Key-Skills:</strong> Spielübersicht, Spielaufbau, Point-to-Point, Point-Shot</p>
+                <p> <strong>Position:</strong> 2010 - 2014 Torwart | 2014 - 2016 Verteidiger</p>
+                <p> <strong>Erfolge:</strong> Vizemeister Bezirksmeisterschaft Oberbayern 2016 (Slalom & Schnelllauf) | "2nd best Goalie in Camp"</p>
+                <p> <strong>Vereine:</strong> SC Riessersee (SCR) | Augsburger Panther (AEV)</p>
+                <p> <strong>Key-Skills:</strong> Spielübersicht, Spielaufbau, Point-to-Point, Point-Shot</p>
             </div>`;
     } else if (sport === 'Thaiboxen') {
         content.innerHTML = `
-            <p style="margin-bottom: 1rem; line-height: 1.5;"><strong>🥊 Thaiboxen (Muay Thai) — Kunst der 8 Gliedmaßen</strong></p>
+            <p style="margin-bottom: 1rem; line-height: 1.5;"><strong>🥊 Thaiboxen (Muay Thai) — "Art of 8 limbs"</strong></p>
             <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 12px; font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.6rem;">
-                <p>🏆 <strong>Erfolge:</strong> Beitritt Wettkampf-Team (07.2026)</p>
-                <p>🥋 <strong>Team/Schule:</strong> Garabu / Fight Academy Allgäu</p>
-                <p>📍 <strong>Schwerpunkte:</strong> Pratzentraining, Sparring, Ausdauer</p>
-                <p>🙏 <strong>Wichtige Werte:</strong> Respekt, Kontrolle, Durchhaltevermögen, Achtsamkeit</p>
+                <p> <strong>Erfolge:</strong> Beitritt Wettkampf-Team (07.2026)</p>
+                <p> <strong>Team/Schule:</strong> Garabu / Fight Academy Allgäu</p>
+                <p> <strong>Trainings-Favourites:</strong> Pratzentraining, Sparring, Ausdauer</p>
+                <p> <strong>Wichtige Werte:</strong> Respekt, Kontrolle, Durchhaltevermögen, Achtsamkeit</p>
             </div>`;
     }
     popup.classList.add('active');
@@ -246,7 +246,7 @@ const workoutData = {
         { task: "→ Gerade schlagen (2 Min.)", done: false },
         { task: "→ Haken schlagen (2 Min.)", done: false },
         { task: "→ Aufwärtshaken schlagen (2 Min.)", done: false },
-        { task: "→ Thai-Block zu Low-Kick", done: false }
+        { task: "→ Thai-Block zu Front-Kick", done: false }
     ]
 };
 
@@ -424,11 +424,11 @@ function initMusicDashboard() {
 document.addEventListener("DOMContentLoaded", initMusicDashboard);
 
 const feedCounters = { panda: 0, katze: 0, panther: 0, axolotl: 0, gorilla: 0 };
-const API_URL = 'https://example.com/api/feed-counts';
+// const API_URL = 'https://example.com/api/feed-counts';
 
 async function loadInitialCounts() {
     try {
-        const counts = { panda: 120, katze: 88, panther: 42, axolotl: 77, gorilla: 55 };
+        const counts = { panda: 0, katze: 0, panther: 0, axolotl: 0, gorilla: 0 };
         Object.keys(counts).forEach(animalId => {
             feedCounters[animalId] = counts[animalId];
             const el = document.getElementById(`feed-${animalId}`);
