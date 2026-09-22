@@ -1343,6 +1343,9 @@ p {
     border-radius: 50%;
     border: 1px solid rgba(255,255,255,0.08);
     background: rgba(255,255,255,0.015);
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .game-touch-controls button {

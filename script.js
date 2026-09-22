@@ -828,33 +828,73 @@ class Game {
             }
         });
         const shootBtn = document.getElementById('touch-shoot');
-        shootBtn.addEventListener('touchstart', e => {
-            if (!this.active) return; e.preventDefault();
-            this.isShooting = true; this.fireBullet();
-            this.shootInterval = setInterval(() => this.fireBullet(), 150);
-        }, { passive: false });
-        shootBtn.addEventListener('touchend', e => {
-            e.preventDefault(); this.isShooting = false; clearInterval(this.shootInterval);
-        });
-        
-        // KORRIGIERT: Abgesicherte NippleJS-Initialisierung gegen unerwartete Touch-Fehler
+        if (shootBtn) {
+            shootBtn.addEventListener('touchstart', e => {
+                if (!this.active) return; e.preventDefault();
+                this.isShooting = true; this.fireBullet();
+                this.shootInterval = setInterval(() => this.fireBullet(), 150);
+            }, { passive: false });
+            shootBtn.addEventListener('touchend', e => {
+                e.preventDefault(); this.isShooting = false; clearInterval(this.shootInterval);
+            });
+        }
+
+        const setJoystickDirectionFromX = (clientX) => {
+            const joystickZone = document.getElementById('joystick-zone');
+            if (!joystickZone) return;
+
+            const rect = joystickZone.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const deltaX = clientX - centerX;
+
+            if (Math.abs(deltaX) < 18) {
+                this.joystick.direction = 0;
+                return;
+            }
+
+            this.joystick.direction = deltaX < 0 ? -1 : 1;
+        };
+
+        const resetJoystick = () => {
+            this.joystick.direction = 0;
+        };
+
         if ('ontouchstart' in window && window.innerWidth <= 768) {
             const joystickZone = document.getElementById('joystick-zone');
-            if (joystickZone && typeof nipplejs !== 'undefined') {
-                try {
-                    const manager = nipplejs.create({
-                        zone: joystickZone,
-                        mode: 'static',
-                        position: { left: '50%', top: '50%' },
-                        color: 'var(--accent-color)',
-                        size: 100,
-                    });
-                    manager.on('move', (evt, data) => {
-                        if (data && data.direction) this.joystick.direction = (data.direction.x === 'left') ? -1 : 1;
-                    }).on('end', () => this.joystick.direction = 0);
-                } catch (err) {
-                    console.warn("NippleJS-Initialisierung übersprungen:", err.message);
+            if (joystickZone) {
+                if (typeof nipplejs !== 'undefined') {
+                    try {
+                        const manager = nipplejs.create({
+                            zone: joystickZone,
+                            mode: 'static',
+                            position: { left: '50%', top: '50%' },
+                            color: 'var(--accent-color)',
+                            size: 100,
+                        });
+                        manager.on('move', (evt, data) => {
+                            if (!data || !data.direction) return;
+                            if (data.direction.x === 'left') this.joystick.direction = -1;
+                            else if (data.direction.x === 'right') this.joystick.direction = 1;
+                            else this.joystick.direction = 0;
+                        }).on('end', resetJoystick);
+                    } catch (err) {
+                        console.warn('NippleJS-Initialisierung übersprungen:', err.message);
+                    }
                 }
+
+                joystickZone.addEventListener('touchstart', e => {
+                    if (!e.touches || !e.touches[0]) return;
+                    setJoystickDirectionFromX(e.touches[0].clientX);
+                }, { passive: true });
+
+                joystickZone.addEventListener('touchmove', e => {
+                    if (!e.touches || !e.touches[0]) return;
+                    e.preventDefault();
+                    setJoystickDirectionFromX(e.touches[0].clientX);
+                }, { passive: false });
+
+                joystickZone.addEventListener('touchend', resetJoystick, { passive: true });
+                joystickZone.addEventListener('touchcancel', resetJoystick, { passive: true });
             }
         }
     }
