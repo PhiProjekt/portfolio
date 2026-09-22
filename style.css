@@ -1207,6 +1207,15 @@ p {
     max-width: 720px;
     margin-bottom: 1.3rem;
     font-size: 1.02rem;
+    margin-left: clamp(0.45rem, 1.1vw, 1rem);
+    padding-left: 0.35rem;
+}
+
+.section-head .section-intro,
+.theme-section > .section-intro,
+.subsection > p {
+    margin-left: clamp(0.45rem, 1.1vw, 1rem);
+    padding-left: 0.35rem;
 }
 
 .game-wrapper {
