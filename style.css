@@ -1332,20 +1332,49 @@ p {
 
 .game-touch-controls {
     display: none;
+    align-items: center;
     justify-content: space-between;
     gap: 1rem;
     margin-top: 1rem;
+    width: 100%;
 }
 
 .joystick-zone {
-    width: 120px;
+    position: relative;
+    width: 140px;
     height: 120px;
-    border-radius: 50%;
+    border-radius: 22px;
     border: 1px solid rgba(255,255,255,0.08);
-    background: rgba(255,255,255,0.015);
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    overflow: hidden;
     touch-action: none;
     -webkit-user-select: none;
     user-select: none;
+    box-shadow: inset 0 0 18px rgba(255, 77, 141, 0.08);
+}
+
+.joystick-zone::before {
+    content: "";
+    position: absolute;
+    inset: 16px 18px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.02);
+}
+
+.joystick-handle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ffd7ea 0%, var(--accent-color) 38%, #8f1b58 100%);
+    border: 2px solid rgba(255,255,255,0.8);
+    box-shadow: 0 10px 25px rgba(255, 77, 141, 0.35);
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s ease-out;
+    z-index: 1;
 }
 
 .game-touch-controls button {
