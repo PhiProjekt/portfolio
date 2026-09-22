@@ -537,14 +537,53 @@ function spinMovieWheel() {
 
 function handleFormSubmit(e) {
     e.preventDefault();
-    document.getElementById('portfolio-contact-form').classList.add('hidden');
-    document.getElementById('contact-success-state').classList.remove('hidden');
+
+    const form = e.currentTarget;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const status = form.querySelector('.form-status');
+
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird gesendet...';
+    status.textContent = '';
+    status.classList.remove('error');
+
+    fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Formspree request failed');
+        }
+
+        form.reset();
+        form.classList.add('hidden');
+        document.getElementById('contact-success-state').classList.remove('hidden');
+    }).catch(() => {
+        status.textContent = 'Etwas ist schiefgelaufen. Bitte schreibe mir direkt an philipploose123@gmail.com';
+        status.classList.add('error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Nachricht senden';
+    });
 }
 
 function resetContactForm() {
     const form = document.getElementById('portfolio-contact-form');
     const success = document.getElementById('contact-success-state');
+    const status = form.querySelector('.form-status');
+    const submitBtn = form.querySelector('button[type="submit"]');
     form.reset();
+    status.textContent = '';
+    status.classList.remove('error');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Nachricht senden';
     form.classList.remove('hidden');
     success.classList.add('hidden');
 }

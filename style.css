@@ -1674,6 +1674,18 @@ p {
     background: rgba(255,255,255,0.025);
 }
 
+.form-status {
+    min-height: 1.2rem;
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.82rem;
+    text-align: center;
+}
+
+.form-status.error {
+    color: #ff9bb3;
+}
+
 .success-screen {
     text-align: center;
     padding: 1rem 0.4rem;
