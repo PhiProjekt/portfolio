@@ -97,63 +97,109 @@ const Lrc = {
         }
 
         updateActiveLyric() {
-            let activeIndex = -1;
-            for (let i = 0; i < this.lyrics.length; i++) {
+            const lines = this.container ? this.container.querySelectorAll('.lyrics-line') : [];
+            if (!lines.length) return;
+
+            let activeIndex = 0;
+            for (let i = this.lyrics.length - 1; i >= 0; i--) {
                 if (this.currentTime >= this.lyrics[i].time) {
                     activeIndex = i;
-                } else {
                     break;
                 }
             }
-            if (activeIndex !== -1) {
-                const scrollInner = this.container.querySelector('.lyrics-scroll-inner');
-                const lines = this.container.querySelectorAll('.lyrics-line');
-                lines.forEach((line, idx) => {
-                    if (idx === activeIndex) {
-                        if (!line.classList.contains('is-active')) {
-                            line.classList.add('is-active');
-                            const lineOffsetTop = line.offsetTop;
-                            const containerHeight = this.container.clientHeight;
-                            const lineHeight = line.clientHeight;
-                            const scrollY = -(lineOffsetTop - containerHeight / 2 + lineHeight / 2);
-                            if (scrollInner) {
-                                scrollInner.style.transform = `translateY(${scrollY}px)`;
-                            }
-                        }
-                    } else {
-                        line.classList.remove('is-active');
+
+            const activeLine = lines[activeIndex] || null;
+            const upcomingLine = activeLine ? lines[activeIndex + 1] : null;
+
+            lines.forEach((line, idx) => {
+                const isActive = idx === activeIndex;
+                const isUpcoming = idx === activeIndex + 1 && !!activeLine;
+                line.classList.toggle('is-active', isActive);
+                line.classList.toggle('is-next', isUpcoming);
+
+                if (isActive || isUpcoming) {
+                    const targetLine = isUpcoming ? upcomingLine : activeLine;
+                    if (targetLine) {
+                        const targetScroll = targetLine.offsetTop - this.container.clientHeight * 0.45;
+                        this.container.scrollTop = Math.max(0, targetScroll);
                     }
-                });
-            }
+                }
+            });
         }
     }
 };
 
 // KORRIGIERT: Sichere AOS-Initialisierung, um mögliche Fehler abzufangen
 if (typeof AOS !== 'undefined') {
-    AOS.init({ duration: 1200, once: true });
+    AOS.init({
+        duration: 700,
+        once: true,
+        offset: 30,
+        easing: 'ease-out-cubic'
+    });
 }
 
 const sections = document.querySelectorAll('section');
 const navItems = document.querySelectorAll('.nav-item');
+let currentTheme = document.body.getAttribute('data-theme') || 'space';
+let themeUpdateFrame = null;
+
+function applyTheme(theme) {
+    if (!theme || theme === currentTheme) return;
+    currentTheme = theme;
+    document.body.setAttribute('data-theme', theme);
+    navItems.forEach((item) => {
+        item.classList.remove('active');
+        if (item.getAttribute('href') === `#${themeObserverTargetId || ''}`) {
+            item.classList.add('active');
+        }
+    });
+    morphParticleColors(theme);
+}
+
+function setupAnchorOffsets() {
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+            const targetId = link.getAttribute('href');
+            if (!targetId || targetId === '#') return;
+
+            const target = document.querySelector(targetId);
+            if (!target) return;
+
+            event.preventDefault();
+            const offset = 90;
+            const top = target.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+            history.replaceState(null, '', targetId);
+        });
+    });
+}
+
+let themeObserverTargetId = '';
 
 const themeObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            const theme = entry.target.getAttribute('data-theme');
+    const visibleEntry = entries.filter(entry => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (!visibleEntry) return;
+
+    const theme = visibleEntry.target.getAttribute('data-theme');
+    themeObserverTargetId = visibleEntry.target.id;
+
+    if (themeUpdateFrame) cancelAnimationFrame(themeUpdateFrame);
+    themeUpdateFrame = requestAnimationFrame(() => {
+        navItems.forEach((item) => {
+            const isActive = item.getAttribute('href') === `#${themeObserverTargetId}`;
+            item.classList.toggle('active', isActive);
+        });
+        if (theme && theme !== currentTheme) {
             document.body.setAttribute('data-theme', theme);
-            navItems.forEach((item) => {
-                item.classList.remove('active');
-                if (item.getAttribute('href') === `#${entry.target.id}`) {
-                    item.classList.add('active');
-                }
-            });
+            currentTheme = theme;
             morphParticleColors(theme);
         }
     });
-}, { root: null, threshold: 0.20 });
+}, { root: null, threshold: 0.35, rootMargin: '0px 0px -10% 0px' });
 
 sections.forEach((section) => themeObserver.observe(section));
+setupAnchorOffsets();
 
 const hamburger = document.getElementById('hamburger');
 const sidebar = document.getElementById('mobileSidebar');
@@ -186,7 +232,7 @@ function toggleArtistDropdown(id) {
     }
 }
 
-// Sport-Popup-Inhalte mit exakten Daten
+// Sport-Popup-Inhalte mit deinen exakten Daten
 function openPopup(sport, typeClass) {
     const popup = document.getElementById('custom-popup');
     const headerImg = document.getElementById('popup-theme-header');
@@ -199,19 +245,19 @@ function openPopup(sport, typeClass) {
         content.innerHTML = `
             <p style="margin-bottom: 1rem; line-height: 1.5;"><strong>❄️ Eishockey — Leidenschaft auf dem Eis</strong></p>
             <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 12px; font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.6rem;">
-                <p> <strong>Position:</strong> 2010 - 2014 Torwart | 2014 - 2016 Verteidiger</p>
-                <p> <strong>Erfolge:</strong> Vizemeister Bezirksmeisterschaft Oberbayern 2016 (Slalom & Schnelllauf) | "2nd best Goalie in Camp"</p>
-                <p> <strong>Vereine:</strong> SC Riessersee (SCR) | Augsburger Panther (AEV)</p>
-                <p> <strong>Key-Skills:</strong> Spielübersicht, Spielaufbau, Point-to-Point, Point-Shot</p>
+                <p>📍 <strong>Position:</strong> 2010 - 2014 Torwart | 2014 - 2016 Verteidiger</p>
+                <p>🏆 <strong>Erfolge:</strong> Vizemeister Bezirksmeisterschaft Oberbayern 2016 (Slalom & Schnelllauf) | "2nd best Goalie in Camp"</p>
+                <p>🏒 <strong>Vereine:</strong> SC Riessersee (SCR) | Augsburger Panther (AEV)</p>
+                <p>⚡ <strong>Key-Skills:</strong> Spielübersicht, Spielaufbau, Point-to-Point, Point-Shot</p>
             </div>`;
     } else if (sport === 'Thaiboxen') {
         content.innerHTML = `
-            <p style="margin-bottom: 1rem; line-height: 1.5;"><strong>🥊 Thaiboxen (Muay Thai) — "Art of 8 limbs"</strong></p>
+            <p style="margin-bottom: 1rem; line-height: 1.5;"><strong>🥊 Thaiboxen (Muay Thai) — Kunst der 8 Gliedmaßen</strong></p>
             <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 12px; font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.6rem;">
-                <p> <strong>Erfolge:</strong> Beitritt Wettkampf-Team (07.2026)</p>
-                <p> <strong>Team/Schule:</strong> Garabu / Fight Academy Allgäu</p>
-                <p> <strong>Trainings-Favourites:</strong> Pratzentraining, Sparring, Ausdauer</p>
-                <p> <strong>Wichtige Werte:</strong> Respekt, Kontrolle, Durchhaltevermögen, Achtsamkeit</p>
+                <p>🏆 <strong>Erfolge:</strong> Beitritt Wettkampf-Team (07.2026)</p>
+                <p>🥋 <strong>Team/Schule:</strong> Garabu / Fight Academy Allgäu</p>
+                <p>📍 <strong>Schwerpunkte:</strong> Pratzentraining, Sparring, Ausdauer</p>
+                <p>🙏 <strong>Wichtige Werte:</strong> Respekt, Kontrolle, Durchhaltevermögen, Achtsamkeit</p>
             </div>`;
     }
     popup.classList.add('active');
@@ -246,7 +292,7 @@ const workoutData = {
         { task: "→ Gerade schlagen (2 Min.)", done: false },
         { task: "→ Haken schlagen (2 Min.)", done: false },
         { task: "→ Aufwärtshaken schlagen (2 Min.)", done: false },
-        { task: "→ Thai-Block zu Front-Kick", done: false }
+        { task: "→ Thai-Block zu Low-Kick", done: false }
     ]
 };
 
@@ -269,8 +315,6 @@ function toggleTask(type, idx) {
     workoutData[type][idx].done = !workoutData[type][idx].done;
     generateWorkout(type);
 }
-
-document.addEventListener("DOMContentLoaded", () => generateWorkout('boxing'));
 
 // Musik-Katalog mit alphabetischer Sortierung
 const musicCatalog = {
@@ -296,8 +340,7 @@ const musicCatalog = {
         {
             artist: "Sido",
             tracks: [
-                { id: "bilder-im-kopf", title: "Bilder im Kopf" },
-                { id: "maske", title: "Maske"}
+                { id: "bilder-im-kopf", title: "Bilder im Kopf" }
             ]
         }
     ],
@@ -305,11 +348,7 @@ const musicCatalog = {
         {
             artist: "Limp Bizkit",
             tracks: [
-                { id: "nookie", title: "Nookie" },
-                { id: "break_stuff", title: "Break Stuff"},
-                { id: "my_way", title: "My Way" },
-                { id: "take_a_look_around", title: "Take A Look Around"},
-                { id: "rollin", title: "Rollin'"}
+                { id: "nookie", title: "Nookie" }
             ]
         }
     ],
@@ -426,14 +465,22 @@ function initMusicDashboard() {
     if (genreKeys.length > 0) switchGenre(genreKeys[0]);
 }
 
-document.addEventListener("DOMContentLoaded", initMusicDashboard);
+if (document.readyState === 'loading') {
+    document.addEventListener("DOMContentLoaded", initMusicDashboard);
+    document.addEventListener("DOMContentLoaded", () => generateWorkout('boxing'));
+    document.addEventListener("DOMContentLoaded", loadInitialCounts);
+} else {
+    initMusicDashboard();
+    generateWorkout('boxing');
+    loadInitialCounts();
+}
 
 const feedCounters = { panda: 0, katze: 0, panther: 0, axolotl: 0, gorilla: 0 };
-// const API_URL = 'https://example.com/api/feed-counts';
+const API_URL = 'https://example.com/api/feed-counts';
 
 async function loadInitialCounts() {
     try {
-        const counts = { panda: 0, katze: 0, panther: 0, axolotl: 0, gorilla: 0 };
+        const counts = { panda: 120, katze: 88, panther: 42, axolotl: 77, gorilla: 55 };
         Object.keys(counts).forEach(animalId => {
             feedCounters[animalId] = counts[animalId];
             const el = document.getElementById(`feed-${animalId}`);
@@ -547,7 +594,7 @@ class Particle {
 }
 
 function setupParticles() {
-    particles = Array.from({ length: 80 }, () => new Particle());
+    particles = Array.from({ length: 40 }, () => new Particle());
 }
 
 function morphParticleColors(theme) {
@@ -560,14 +607,29 @@ function morphParticleColors(theme) {
     particles.forEach(p => p.targetColor = nextColor);
 }
 
+let particleAnimationId = null;
+
 function animateParticles() {
+    if (document.hidden) {
+        particleAnimationId = null;
+        return;
+    }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach(p => {
         p.update();
         p.draw();
     });
-    requestAnimationFrame(animateParticles);
+    particleAnimationId = requestAnimationFrame(animateParticles);
 }
+
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        if (particleAnimationId) cancelAnimationFrame(particleAnimationId);
+    } else if (!particleAnimationId) {
+        particleAnimationId = requestAnimationFrame(animateParticles);
+    }
+});
 
 let resizeTimeout;
 window.addEventListener('resize', () => {
@@ -588,10 +650,12 @@ animateParticles();
 class Player {
     constructor(game) {
         this.game = game;
-        this.width = 40; this.height = 20;
+        this.width = 42;
+        this.height = 22;
         this.x = game.width / 2 - this.width / 2;
         this.y = game.height - this.height - 20;
-        this.speed = 5; this.dx = 0;
+        this.speed = 16;
+        this.dx = 0;
         this.element = document.getElementById('player-ship');
     }
     update() {
@@ -602,16 +666,21 @@ class Player {
         if (this.x < 0) this.x = 0;
         if (this.x > this.game.width - this.width) this.x = this.game.width - this.width;
     }
-    draw() { this.element.style.transform = `translate3d(${this.x}px, 0, 0)`; }
+    draw() {
+        this.element.style.left = `${this.x}px`;
+        this.element.style.bottom = '18px';
+    }
 }
 
 class Bullet {
     constructor(game) {
         this.game = game;
-        this.width = 30; this.height = 15;
+        this.width = 30;
+        this.height = 15;
         this.x = game.player.x + game.player.width / 2 - this.width / 2;
         this.y = game.player.y - this.height;
-        this.speed = 7; this.markedForDeletion = false;
+        this.speed = 9;
+        this.markedForDeletion = false;
         this.element = document.createElement('div');
         this.element.className = 'bullet';
         this.element.innerText = Math.random() > 0.5 ? 'fix' : 'let';
@@ -624,12 +693,17 @@ class Bullet {
         this.y -= this.speed;
         if (this.y < 0 - this.height) this.markedForDeletion = true;
     }
-    draw() { this.element.style.transform = `translate3d(0, ${this.y - (this.game.player.y - this.height)}px, 0)`; }
+    draw() {
+        this.element.style.left = `${this.x}px`;
+        this.element.style.top = `${this.y}px`;
+    }
 }
 
 class Bug {
     constructor(game) {
-        this.game = game; this.speed = 2; this.markedForDeletion = false;
+        this.game = game;
+        this.speed = 2.8;
+        this.markedForDeletion = false;
         this.element = document.createElement('div');
         this.element.className = 'bug-invader';
         this.element.innerText = '👾 ' + ['SyntaxError', '404', 'NullRef', 'Loop', 'MergeConflict'][Math.floor(Math.random() * 5)];
@@ -646,7 +720,10 @@ class Bug {
         this.y += this.speed;
         if (this.y > this.game.height) { this.markedForDeletion = true; this.game.gameOver(); }
     }
-    draw() { this.element.style.transform = `translate3d(${this.x}px, ${this.y}px, 0)`; }
+    draw() {
+        this.element.style.left = `${this.x}px`;
+        this.element.style.top = `${this.y}px`;
+    }
 }
 
 class Game {
@@ -672,7 +749,8 @@ class Game {
         this.player.element.classList.remove('hidden');
         this.scoreElement.innerText = '0'; this.bugsElement.innerText = '0';
         this.player = new Player(this);
-        this.bugSpawner = setInterval(() => this.addBug(), 1400);
+        if (this.bugSpawner) clearInterval(this.bugSpawner);
+        this.bugSpawner = setInterval(() => this.addBug(), 900);
         if (this.gameLoopAnimationId) cancelAnimationFrame(this.gameLoopAnimationId);
         this.animate();
     }
@@ -737,7 +815,7 @@ class Game {
                 e.preventDefault();
                 if (!this.isShooting && this.active) {
                     this.isShooting = true; this.fireBullet();
-                    this.shootInterval = setInterval(() => this.fireBullet(), 220);
+                    this.shootInterval = setInterval(() => this.fireBullet(), 150);
                 }
             }
         });
@@ -753,7 +831,7 @@ class Game {
         shootBtn.addEventListener('touchstart', e => {
             if (!this.active) return; e.preventDefault();
             this.isShooting = true; this.fireBullet();
-            this.shootInterval = setInterval(() => this.fireBullet(), 220);
+            this.shootInterval = setInterval(() => this.fireBullet(), 150);
         }, { passive: false });
         shootBtn.addEventListener('touchend', e => {
             e.preventDefault(); this.isShooting = false; clearInterval(this.shootInterval);
