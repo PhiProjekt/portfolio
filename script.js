@@ -843,28 +843,36 @@ class Game {
         };
 
         const shootBtn = document.getElementById('touch-shoot');
-        if (shootBtn) {
-            shootBtn.addEventListener('pointerdown', e => {
-                if (!this.active) return; e.preventDefault();
-                startShooting();
-            });
-            shootBtn.addEventListener('pointerup', () => stopShooting());
-            shootBtn.addEventListener('pointercancel', () => stopShooting());
-            shootBtn.addEventListener('pointerleave', () => stopShooting());
+        const joystickZone = document.getElementById('joystick-zone');
 
+        if (shootBtn) {
+            const handleShootDown = e => {
+                if (!this.active) return;
+                e.preventDefault();
+                stopShooting();
+                startShooting();
+            };
+
+            shootBtn.addEventListener('pointerdown', handleShootDown);
             shootBtn.addEventListener('touchstart', e => {
-                if (!this.active) return; e.preventDefault();
+                if (!this.active) return;
+                e.preventDefault();
+                stopShooting();
                 startShooting();
             }, { passive: false });
+            shootBtn.addEventListener('pointerup', stopShooting);
+            shootBtn.addEventListener('pointercancel', stopShooting);
+            shootBtn.addEventListener('pointerleave', stopShooting);
             shootBtn.addEventListener('touchend', e => {
-                e.preventDefault(); stopShooting();
+                e.preventDefault();
+                stopShooting();
             });
             shootBtn.addEventListener('touchcancel', e => {
-                e.preventDefault(); stopShooting();
+                e.preventDefault();
+                stopShooting();
             });
         }
 
-        const joystickZone = document.getElementById('joystick-zone');
         if (joystickZone && window.innerWidth <= 768) {
             let joystickActive = false;
             const handle = document.createElement('div');
@@ -894,10 +902,12 @@ class Game {
                 updateJoystick(clientX);
             };
 
-            joystickZone.addEventListener('pointerdown', e => {
+            const handleJoystickDown = e => {
                 e.preventDefault();
                 startJoystick(e.clientX);
-            });
+            };
+
+            joystickZone.addEventListener('pointerdown', handleJoystickDown);
             joystickZone.addEventListener('pointermove', e => {
                 if (!joystickActive) return;
                 e.preventDefault();
@@ -905,18 +915,19 @@ class Game {
             });
             joystickZone.addEventListener('pointerup', resetJoystick);
             joystickZone.addEventListener('pointercancel', resetJoystick);
+            joystickZone.addEventListener('pointerleave', () => {
+                if (joystickActive) resetJoystick();
+            });
 
             joystickZone.addEventListener('touchstart', e => {
                 if (!e.touches || !e.touches[0]) return;
                 startJoystick(e.touches[0].clientX);
             }, { passive: true });
-
             joystickZone.addEventListener('touchmove', e => {
                 if (!joystickActive || !e.touches || !e.touches[0]) return;
                 e.preventDefault();
                 updateJoystick(e.touches[0].clientX);
             }, { passive: false });
-
             joystickZone.addEventListener('touchend', resetJoystick, { passive: true });
             joystickZone.addEventListener('touchcancel', resetJoystick, { passive: true });
         }
