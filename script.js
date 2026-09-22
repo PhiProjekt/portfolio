@@ -849,7 +849,6 @@ class Game {
             const handleShootDown = e => {
                 if (!this.active) return;
                 e.preventDefault();
-                stopShooting();
                 startShooting();
             };
 
@@ -857,12 +856,10 @@ class Game {
             shootBtn.addEventListener('touchstart', e => {
                 if (!this.active) return;
                 e.preventDefault();
-                stopShooting();
                 startShooting();
             }, { passive: false });
             shootBtn.addEventListener('pointerup', stopShooting);
             shootBtn.addEventListener('pointercancel', stopShooting);
-            shootBtn.addEventListener('pointerleave', stopShooting);
             shootBtn.addEventListener('touchend', e => {
                 e.preventDefault();
                 stopShooting();
@@ -897,7 +894,6 @@ class Game {
             };
 
             const startJoystick = (clientX) => {
-                stopShooting();
                 joystickActive = true;
                 updateJoystick(clientX);
             };
@@ -915,9 +911,6 @@ class Game {
             });
             joystickZone.addEventListener('pointerup', resetJoystick);
             joystickZone.addEventListener('pointercancel', resetJoystick);
-            joystickZone.addEventListener('pointerleave', () => {
-                if (joystickActive) resetJoystick();
-            });
 
             joystickZone.addEventListener('touchstart', e => {
                 if (!e.touches || !e.touches[0]) return;
