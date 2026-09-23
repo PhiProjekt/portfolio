@@ -196,22 +196,10 @@ sportBubbles.forEach((bubble) => {
     const setHint = (message) => {
         hint.textContent = message;
         bubble.classList.add('is-activated');
-        hint.style.opacity = '1';
-        hint.style.visibility = 'visible';
-        hint.style.background = '#080b12';
-        hint.style.backgroundColor = '#080b12';
-        hint.style.backgroundImage = 'none';
-        hint.style.zIndex = '999';
     };
 
     const clearHint = () => {
         bubble.classList.remove('is-activated');
-        hint.style.opacity = '0';
-        hint.style.visibility = 'hidden';
-        hint.style.background = '#080b12';
-        hint.style.backgroundColor = '#080b12';
-        hint.style.backgroundImage = 'none';
-        hint.style.zIndex = '999';
     };
 
     bubble.addEventListener('mouseenter', () => {
