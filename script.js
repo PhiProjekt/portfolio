@@ -259,6 +259,7 @@ const secretTrigger = document.getElementById('secret-trigger');
 const secretToast = document.getElementById('secret-toast');
 const secretPartsLayer = document.getElementById('secret-parts');
 const secretRoom = document.getElementById('secret-room');
+const secretTransition = document.getElementById('secret-transition');
 
 const secretGame = {
     active: false,
@@ -282,6 +283,17 @@ function clearSecretParts() {
     while (secretPartsLayer.firstChild) {
         secretPartsLayer.removeChild(secretPartsLayer.firstChild);
     }
+}
+
+function triggerSecretTransition() {
+    if (!secretTransition) return;
+    secretTransition.classList.remove('is-visible');
+    void secretTransition.offsetWidth;
+    secretTransition.classList.add('is-visible');
+    clearTimeout(triggerSecretTransition.timeoutId);
+    triggerSecretTransition.timeoutId = setTimeout(() => {
+        secretTransition.classList.remove('is-visible');
+    }, 1400);
 }
 
 function startSecretGame() {
@@ -333,6 +345,7 @@ function completeSecretGame() {
     secretGame.active = false;
     secretGame.complete = true;
     clearSecretParts();
+    triggerSecretTransition();
     if (secretRoom) {
         secretRoom.classList.add('is-visible');
     }
