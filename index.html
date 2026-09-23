@@ -14,8 +14,11 @@
     <canvas id="ambient-canvas"></canvas>
     <div class="layer-blur"></div>
 
+    <div id="secret-toast" class="secret-toast" aria-live="polite">Secret mini game gestartet</div>
+    <div id="secret-parts" class="secret-parts" aria-hidden="true"></div>
+
     <header class="navbar">
-        <div class="brand-wrap">
+        <div class="brand-wrap secret-trigger" id="secret-trigger" role="button" tabindex="0" aria-label="Secret Mini-Game starten">
             <div class="brand-mark">C</div>
             <div class="logo rainbow-text">CozeyVibes</div>
         </div>
@@ -338,6 +341,26 @@
                     <button type="submit" class="btn-main send-btn-animate">Nachricht senden</button>
                     <p class="form-status" aria-live="polite"></p>
                 </form>
+            </div>
+        </section>
+
+        <section id="secret-room" class="theme-section secret-section" data-theme="secret">
+            <div class="section-head" data-aos="fade-up">
+                <p class="eyebrow">Secret</p>
+                <h2 class="rainbow-text">Cozey-Archive</h2>
+                <p class="section-intro">Du hast alle Geheimnisse gefunden. Willkommen im stillen Archiv hinter der Seite — hier liegt der wahre Cozey-Code.</p>
+            </div>
+            <div class="secret-room-grid" data-aos="fade-up">
+                <article class="glass-panel secret-card">
+                    <span class="mini-label">Status</span>
+                    <h3>Mission complete</h3>
+                    <p>Du hast das Mini-Game durchgespielt und alle Secret-Teile gesammelt. Es war nicht schwer. Nur ein bisschen schräg.</p>
+                </article>
+                <article class="glass-panel secret-card accent-card">
+                    <span class="mini-label">Reward</span>
+                    <h3>Bonus Level</h3>
+                    <p>Der nächste Schritt ist einfach: weiterbauen, still entwickeln, und ab und an mit einem paar verrückten Ideen die Seite überraschen.</p>
+                </article>
             </div>
         </section>
     </main>

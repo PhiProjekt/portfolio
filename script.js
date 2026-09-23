@@ -255,6 +255,97 @@ const themeObserver = new IntersectionObserver((entries) => {
 sections.forEach((section) => themeObserver.observe(section));
 setupAnchorOffsets();
 
+const secretTrigger = document.getElementById('secret-trigger');
+const secretToast = document.getElementById('secret-toast');
+const secretPartsLayer = document.getElementById('secret-parts');
+const secretRoom = document.getElementById('secret-room');
+
+const secretGame = {
+    active: false,
+    complete: false,
+    total: 5,
+    found: 0,
+};
+
+function showSecretToast(message) {
+    if (!secretToast) return;
+    secretToast.textContent = message;
+    secretToast.classList.add('show');
+    clearTimeout(showSecretToast.timeoutId);
+    showSecretToast.timeoutId = setTimeout(() => {
+        secretToast.classList.remove('show');
+    }, 1600);
+}
+
+function clearSecretParts() {
+    if (!secretPartsLayer) return;
+    while (secretPartsLayer.firstChild) {
+        secretPartsLayer.removeChild(secretPartsLayer.firstChild);
+    }
+}
+
+function startSecretGame() {
+    if (!secretTrigger || !secretPartsLayer) return;
+    if (secretGame.complete) {
+        showSecretToast('Secret bereits entdeckt');
+        return;
+    }
+    if (secretGame.active) return;
+
+    secretGame.active = true;
+    secretGame.found = 0;
+    clearSecretParts();
+
+    const secretSymbols = ['C', 'O', 'Z', 'E', 'Y'];
+    for (let i = 0; i < secretGame.total; i++) {
+        const part = document.createElement('button');
+        part.type = 'button';
+        part.className = 'secret-part';
+        part.textContent = secretSymbols[i % secretSymbols.length];
+
+        const left = 36 + Math.random() * (window.innerWidth - 120);
+        const top = 120 + Math.random() * (window.innerHeight - 220);
+        part.style.left = `${left}px`;
+        part.style.top = `${top}px`;
+
+        part.addEventListener('click', () => {
+            if (!secretGame.active) return;
+            part.classList.add('collected');
+            setTimeout(() => part.remove(), 220);
+            secretGame.found += 1;
+            showSecretToast(`${secretGame.found}/${secretGame.total} Secret-Teile gefunden`);
+
+            if (secretGame.found >= secretGame.total) {
+                completeSecretGame();
+            }
+        });
+
+        secretPartsLayer.appendChild(part);
+    }
+
+    showSecretToast('Secret mini game gestartet');
+}
+
+function completeSecretGame() {
+    secretGame.active = false;
+    secretGame.complete = true;
+    clearSecretParts();
+    if (secretRoom) {
+        secretRoom.classList.add('is-visible');
+    }
+    showSecretToast('Secret komplett — bonus section freigeschaltet');
+}
+
+if (secretTrigger) {
+    secretTrigger.addEventListener('click', startSecretGame);
+    secretTrigger.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            startSecretGame();
+        }
+    });
+}
+
 const hamburger = document.getElementById('hamburger');
 const sidebar = document.getElementById('mobileSidebar');
 const closeBtn = document.getElementById('closeBtn');
