@@ -176,10 +176,10 @@ function setupAnchorOffsets() {
 }
 
 const sportBubbleMessages = {
-    leistung: ['momentan: 110%', 'nur noch ein bisschen mehr', 'ich liebe Schmerzen, aber nur im guten Sinn'],
-    disziplin: ['nicht heute, sondern jetzt', 'ich habe schon auf den Wecker geschaut', 'Knochen weg, excuses auf Pause'],
-    kontinuität: ['5 Tage geschafft, 2 Tage noch nicht ganz', 'endlich wieder am Ball', 'ich war heute auch mal konsequent'],
-    mentalität: ['ich bin nicht gestresst, ich bin fokussiert', 'kann ich heute noch 3 Sätze schreiben?', 'alles okay, ich habe nur gerade einen inneren Kampf']
+    leistung: ['momentan: 110%', 'nur noch ein bisschen mehr', 'Schweiß ist nur Wasser mit Stil', 'Harte Arbeit schlägt Talent', 'Schweiß stirbt, Stolz bleibt'],
+    disziplin: ['Disziplin ist die Brücke zwischen Zielen und Erfolg', 'Erleide den Schmerz der Disziplin oder den Schmerz des Bedauerns', 'Knochen weg, excuses auf Pause', 'Disziplin ist die Wahl zwischen Jetzt und Morgen'],
+    kontinuität: ['Erfolg ist die Summe kleiner Bemühungen, die Tag für Tag wiederholt werden', 'Machen, nicht reden', 'Konsequent, nicht perfekt', 'Tag für Tag', 'Der Weg ist das Ziel'],
+    mentalität: ['Be water, my friend', 'In der Ruhe liegt die Kraft', 'Was mich nicht umbringt, macht mich stärker', 'Der Bambus biegt sich, aber er bricht nicht', 'Siebenmal hinfallen, achtmal aufstehen', 'Inmitten des Chaos gibt es auch Chancen', 'Laufe nicht vor Spannungen davon, stelle dich ihnen'],
 };
 
 const sportBubbles = document.querySelectorAll('.value-pill');
@@ -324,19 +324,19 @@ function openPopup(sport, typeClass) {
         content.innerHTML = `
             <p style="margin-bottom: 1rem; line-height: 1.5;"><strong>❄️ Eishockey — Leidenschaft auf dem Eis</strong></p>
             <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 12px; font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.6rem;">
-                <p>📍 <strong>Position:</strong> 2010 - 2014 Torwart | 2014 - 2016 Verteidiger</p>
-                <p>🏆 <strong>Erfolge:</strong> Vizemeister Bezirksmeisterschaft Oberbayern 2016 (Slalom & Schnelllauf) | "2nd best Goalie in Camp"</p>
-                <p>🏒 <strong>Vereine:</strong> SC Riessersee (SCR) | Augsburger Panther (AEV)</p>
-                <p>⚡ <strong>Key-Skills:</strong> Spielübersicht, Spielaufbau, Point-to-Point, Point-Shot</p>
+                <p> <strong>Position:</strong> 2010 - 2014 Torwart | 2014 - 2016 Verteidiger</p>
+                <p> <strong>Erfolge:</strong> Vizemeister Bezirksmeisterschaft Oberbayern 2016 (Slalom & Schnelllauf) | "2nd best Goalie in Camp"</p>
+                <p> <strong>Vereine:</strong> SC Riessersee (SCR) | Augsburger Panther (AEV)</p>
+                <p> <strong>Key-Skills:</strong> Spielübersicht, Spielaufbau, Point-to-Point, Point-Shot</p>
             </div>`;
     } else if (sport === 'Thaiboxen') {
         content.innerHTML = `
             <p style="margin-bottom: 1rem; line-height: 1.5;"><strong>🥊 Thaiboxen (Muay Thai) — Kunst der 8 Gliedmaßen</strong></p>
             <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 12px; font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.6rem;">
-                <p>🏆 <strong>Erfolge:</strong> Beitritt Wettkampf-Team (07.2026)</p>
-                <p>🥋 <strong>Team/Schule:</strong> Garabu / Fight Academy Allgäu</p>
-                <p>📍 <strong>Schwerpunkte:</strong> Pratzentraining, Sparring, Ausdauer</p>
-                <p>🙏 <strong>Wichtige Werte:</strong> Respekt, Kontrolle, Durchhaltevermögen, Achtsamkeit</p>
+                <p> <strong>Erfolge:</strong> Beitritt Wettkampf-Team (07.2026)</p>
+                <p> <strong>Team/Schule:</strong> Garabu / Fight Academy Allgäu</p>
+                <p> <strong>Schwerpunkte:</strong> Pratzentraining, Sparring, Ausdauer</p>
+                <p> <strong>Wichtige Werte:</strong> Respekt, Kontrolle, Durchhaltevermögen, Achtsamkeit</p>
             </div>`;
     }
     popup.classList.add('active');
