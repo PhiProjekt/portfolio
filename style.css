@@ -692,31 +692,16 @@ p {
     transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
 }
 
-.value-pill.is-activated .value-pill-hint,
-.value-pill:hover .value-pill-hint {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateX(-50%) translateY(0) !important;
-    background-color: #080b12 !important;
-    background: #080b12 !important;
-    background-image: none !important;
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
-    z-index: 999 !important;
-}
-
-@media (pointer: coarse) {
-    .value-pill-hint,
-    .value-pill.is-activated .value-pill-hint,
-    .value-pill:hover .value-pill-hint {
-        background-color: #080b12 !important;
-        background: #080b12 !important;
-        background-image: none !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        -webkit-backdrop-filter: none !important;
-        backdrop-filter: none !important;
-    }
+.value-pill.is-activated .value-pill-hint {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    background-color: #080b12;
+    background: #080b12;
+    background-image: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    z-index: 999;
 }
 
 .value-pill.is-popping {

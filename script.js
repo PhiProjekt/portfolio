@@ -202,7 +202,6 @@ sportBubbles.forEach((bubble) => {
         hint.style.backgroundColor = '#080b12';
         hint.style.backgroundImage = 'none';
         hint.style.zIndex = '999';
-        hint.style.display = 'inline-flex';
     };
 
     const clearHint = () => {
@@ -212,7 +211,7 @@ sportBubbles.forEach((bubble) => {
         hint.style.background = '#080b12';
         hint.style.backgroundColor = '#080b12';
         hint.style.backgroundImage = 'none';
-        hint.style.display = 'inline-flex';
+        hint.style.zIndex = '999';
     };
 
     bubble.addEventListener('mouseenter', () => {
