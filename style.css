@@ -1843,9 +1843,25 @@ p {
 }
 
 @media (max-width: 900px) {
-    .music-layout,
-    .movie-interactive-wrapper {
+    .music-layout {
         grid-template-columns: 1fr;
+    }
+
+    .movie-interactive-wrapper {
+        display: flex;
+        flex-direction: column;
+        grid-template-columns: none;
+    }
+
+    .movie-info-side {
+        display: flex;
+        flex-direction: column;
+        order: 1;
+    }
+
+    .ticket-dispenser {
+        order: 3;
+        margin-top: 0.2rem;
     }
 }
 
@@ -1920,10 +1936,6 @@ p {
 
     .movie-ranking-box {
         padding: 0.9rem;
-    }
-
-    .movie-info-side {
-        order: 1;
     }
 
     .movie-info-side .btn-main {
