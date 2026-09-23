@@ -339,12 +339,18 @@ p {
 }
 
 .secret-section {
-    display: none;
+    display: none !important;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
     margin-top: 2rem;
 }
 
 .secret-section.is-visible {
-    display: block;
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
     animation: sectionReveal 0.5s ease;
 }
 
