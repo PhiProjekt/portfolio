@@ -348,9 +348,16 @@ p {
     background: linear-gradient(135deg, rgba(255,128,167,0.22), rgba(255,255,255,0.06));
     border: 1px solid rgba(255,255,255,0.12);
     box-shadow: 0 12px 28px rgba(8, 13, 22, 0.45);
-    z-index: 100;
+    z-index: 50;
     cursor: pointer;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    opacity: 0.9;
+    transition: transform 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.sidebar.mobile.open ~ .hamburger,
+.hamburger:focus-visible {
+    z-index: 40;
+    opacity: 0.25;
 }
 
 .hamburger:hover {
