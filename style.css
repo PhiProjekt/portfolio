@@ -1922,6 +1922,18 @@ p {
         padding: 0.9rem;
     }
 
+    .movie-info-side {
+        order: 1;
+    }
+
+    .movie-info-side .btn-main {
+        order: 2;
+    }
+
+    .movie-ranking-box {
+        order: 1;
+    }
+
     .ticket {
         width: 100%;
     }
