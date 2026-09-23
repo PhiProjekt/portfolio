@@ -464,7 +464,7 @@ const workoutData = {
         { task: "15 Squat Jumps", done: false },
         { task: "15 Lunges pro Seite", done: false },
         { task: "50 Calf raises", done: false },
-        { task: "Wall sit (bis zum Muskelversagen)", done: false }
+        { task: "Wall sit (bis zum Versagen)", done: false }
     ],
     boxing: [
         { task: "Springseil (30 Minuten)", done: false },
