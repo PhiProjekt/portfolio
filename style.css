@@ -616,6 +616,8 @@ p {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    min-width: 150px;
+    min-height: 46px;
     padding: 0.68rem 0.95rem;
     border-radius: 999px;
     border: 1px solid rgba(255,255,255,0.06);
@@ -658,25 +660,37 @@ p {
 }
 
 .value-pill-hint {
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 0.5rem);
+    z-index: 25;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    max-width: min(240px, 62vw);
+    width: max-content;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    white-space: nowrap;
+    white-space: normal;
+    text-align: center;
     font-size: 0.54rem;
     letter-spacing: 0.04em;
     text-transform: none;
     color: rgba(255,255,255,0.85);
-    transform: translateX(8px);
+    background: rgba(9, 13, 22, 0.9);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 0.5rem 0.7rem;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.24);
+    transform: translateX(-50%) translateY(8px);
     transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
 }
 
 .value-pill.is-activated .value-pill-hint {
     opacity: 1;
     visibility: visible;
-    transform: translateX(0);
+    transform: translateX(-50%) translateY(0);
 }
 
 .value-pill.is-popping {
