@@ -199,6 +199,8 @@ sportBubbles.forEach((bubble) => {
         hint.style.opacity = '1';
         hint.style.visibility = 'visible';
         hint.style.background = '#080b12';
+        hint.style.backgroundColor = '#080b12';
+        hint.style.backgroundImage = 'none';
         hint.style.zIndex = '999';
         hint.style.display = 'inline-flex';
     };
@@ -207,6 +209,9 @@ sportBubbles.forEach((bubble) => {
         bubble.classList.remove('is-activated');
         hint.style.opacity = '0';
         hint.style.visibility = 'hidden';
+        hint.style.background = '#080b12';
+        hint.style.backgroundColor = '#080b12';
+        hint.style.backgroundImage = 'none';
         hint.style.display = 'inline-flex';
     };
 
