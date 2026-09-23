@@ -198,20 +198,16 @@ sportBubbles.forEach((bubble) => {
         bubble.classList.add('is-activated');
         hint.style.opacity = '1';
         hint.style.visibility = 'visible';
-        hint.style.position = 'absolute';
-        hint.style.left = '50%';
-        hint.style.top = 'calc(100% + 0.25rem)';
-        hint.style.transform = 'translateX(-50%) translateY(0)';
+        hint.style.background = '#080b12';
+        hint.style.zIndex = '999';
+        hint.style.display = 'inline-flex';
     };
 
     const clearHint = () => {
         bubble.classList.remove('is-activated');
         hint.style.opacity = '0';
         hint.style.visibility = 'hidden';
-        hint.style.transform = 'translateX(-50%) translateY(0)';
-        hint.style.position = 'absolute';
-        hint.style.left = '50%';
-        hint.style.top = 'calc(100% + 0.25rem)';
+        hint.style.display = 'inline-flex';
     };
 
     bubble.addEventListener('mouseenter', () => {

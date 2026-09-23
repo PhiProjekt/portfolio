@@ -663,7 +663,7 @@ p {
     position: absolute;
     left: 50%;
     top: calc(100% + 0.2rem);
-    z-index: 25;
+    z-index: 999;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -679,7 +679,7 @@ p {
     letter-spacing: 0.02em;
     text-transform: none;
     color: rgba(255,255,255,0.98);
-    background: rgba(8, 11, 18, 1);
+    background: #080b12;
     border: 1px solid rgba(255,255,255,0.14);
     border-radius: 12px;
     padding: 0.6rem 0.8rem;
@@ -688,10 +688,13 @@ p {
     transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
 }
 
-.value-pill.is-activated .value-pill-hint {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
+.value-pill.is-activated .value-pill-hint,
+.value-pill:hover .value-pill-hint {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateX(-50%) translateY(0) !important;
+    background: #080b12 !important;
+    z-index: 999 !important;
 }
 
 .value-pill.is-popping {
