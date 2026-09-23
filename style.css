@@ -2120,20 +2120,30 @@ p {
     .value-pill {
         width: 100%;
         min-width: 0;
-        justify-content: space-between;
-        padding: 0.8rem 0.9rem;
+        min-height: 106px;
+        height: 106px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.32rem;
+        padding: 0.8rem 0.8rem;
         border-radius: 18px;
-        text-align: left;
+        text-align: center;
     }
 
     .value-pill-label {
         flex-shrink: 0;
+        display: block;
+        width: 100%;
+        text-align: center;
+        line-height: 1.1;
     }
 
     .value-pill-hint {
         position: static;
-        display: inline-flex;
-        width: auto;
+        display: block;
+        width: 100%;
         max-width: none;
         min-width: 0;
         opacity: 1;
@@ -2141,24 +2151,25 @@ p {
         left: auto;
         top: auto;
         transform: none;
-        margin-left: auto;
-        padding: 0.3rem 0.5rem;
-        font-size: 0.72rem;
-        line-height: 1.2;
-        text-align: left;
+        padding: 0;
+        font-size: 0.68rem;
+        line-height: 1.25;
+        text-align: center;
         white-space: normal;
-        background: #080b12;
-        background-color: #080b12;
-        border-radius: 10px;
+        background: transparent;
+        background-color: transparent;
+        border: 0;
+        border-radius: 0;
         box-shadow: none;
+        color: rgba(237, 243, 255, 0.82);
     }
 
     .value-pill.is-activated .value-pill-hint {
         opacity: 1;
         visibility: visible;
         transform: none;
-        background: #080b12;
-        background-color: #080b12;
+        background: transparent;
+        background-color: transparent;
     }
 
     .hero-panel {
