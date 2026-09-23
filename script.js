@@ -512,19 +512,26 @@ function feedAnimal(animalId, emoji, element) {
         if (currentLevel >= maxLevel - 1) {
             animalGrowthLevels[animalId] = 0;
             animalEmoji.classList.remove('feed-burst');
+            animalEmoji.textContent = '💥';
+            animalEmoji.style.transform = 'scale(1.2)';
             void animalEmoji.offsetWidth;
             animalEmoji.classList.add('feed-burst');
-            animalEmoji.style.transform = 'scale(1)';
+
             setTimeout(() => {
                 animalEmoji.classList.remove('feed-burst');
-                animalEmoji.style.transform = 'scale(1)';
-            }, 700);
+                animalEmoji.textContent = emoji;
+                animalEmoji.style.transform = 'scale(0.7)';
+                setTimeout(() => {
+                    animalEmoji.style.transform = 'scale(1)';
+                }, 180);
+            }, 500);
         } else {
             const nextLevel = currentLevel + 1;
             animalGrowthLevels[animalId] = nextLevel;
             const scale = 1 + nextLevel * 0.18;
             animalEmoji.style.transition = 'transform 0.2s ease';
             animalEmoji.style.transform = `scale(${scale})`;
+            animalEmoji.textContent = emoji;
         }
     }
 
