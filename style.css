@@ -58,9 +58,9 @@ body[data-theme="contact"] {
 }
 
 body[data-theme="secret"] {
-    --accent-color: #d78bff;
-    --accent-glow: rgba(215, 139, 255, 0.32);
-    --bg-glow-color: rgba(86, 48, 110, 0.42);
+    --accent-color: #67f7ff;
+    --accent-glow: rgba(103, 247, 255, 0.38);
+    --bg-glow-color: rgba(30, 130, 150, 0.46);
 }
 
 @property --accent-color {
@@ -371,42 +371,80 @@ p {
 }
 
 .secret-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 1.4rem 1.35rem;
     min-height: 200px;
     border-radius: 22px;
-    background: rgba(255,255,255,0.025);
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 18px 42px rgba(8, 12, 18, 0.32);
+    background: linear-gradient(180deg, rgba(10, 17, 24, 0.92), rgba(7, 12, 18, 0.82));
+    border: 1px solid rgba(103, 247, 255, 0.2);
+    box-shadow: 0 18px 42px rgba(8, 12, 18, 0.42), 0 0 24px rgba(103, 247, 255, 0.08);
+    overflow: hidden;
+}
+
+.secret-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        180deg,
+        rgba(255,255,255,0.02) 0,
+        rgba(255,255,255,0.02) 2px,
+        transparent 2px,
+        transparent 5px
+    );
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.secret-card::after {
+    content: "";
+    position: absolute;
+    inset: -20% 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(103, 247, 255, 0.9), transparent);
+    filter: blur(1px);
+    opacity: 0.9;
 }
 
 .secret-card .mini-label {
+    position: relative;
+    z-index: 1;
     display: inline-flex;
     align-self: flex-start;
     margin-bottom: 0.5rem;
     font-size: 0.7rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: rgba(103, 247, 255, 0.9);
 }
 
 .secret-card h3 {
+    position: relative;
+    z-index: 1;
     margin-bottom: 0.6rem;
+    color: #eefcff;
+    text-shadow: 0 0 18px rgba(103, 247, 255, 0.2);
 }
 
 .secret-card p {
+    position: relative;
+    z-index: 1;
     margin: 0;
     color: rgba(237, 243, 255, 0.82);
 }
 
 .secret-card.accent-card {
-    border-color: rgba(215, 139, 255, 0.35);
-    background: linear-gradient(135deg, rgba(215, 139, 255, 0.12), rgba(255,255,255,0.03));
+    border-color: rgba(255, 105, 180, 0.28);
+    background: linear-gradient(135deg, rgba(13, 18, 28, 0.96), rgba(38, 20, 42, 0.88));
+    box-shadow: 0 18px 42px rgba(8, 12, 18, 0.42), 0 0 26px rgba(255, 105, 180, 0.12);
 }
 
 .secret-reward-link {
+    position: relative;
+    z-index: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -414,23 +452,38 @@ p {
     margin-top: 1rem;
     padding: 0.8rem 1.1rem;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.14);
-    background: linear-gradient(135deg, var(--accent-color), rgba(255,255,255,0.18));
-    color: #fff;
+    border: 1px solid rgba(103, 247, 255, 0.5);
+    background: linear-gradient(135deg, rgba(103, 247, 255, 0.18), rgba(255, 105, 180, 0.18));
+    color: #f3fbff;
     font-size: 0.72rem;
     font-weight: 800;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    box-shadow: 0 16px 30px rgba(255, 77, 141, 0.18);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 0 20px rgba(103,247,255,0.18), 0 0 30px rgba(255,105,180,0.18);
     transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.secret-reward-link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.22), transparent);
+    transform: translateX(-120%);
+    transition: transform 0.5s ease;
 }
 
 .secret-reward-link:hover,
 .secret-reward-link:focus-visible {
-    transform: translateY(-2px);
-    box-shadow: 0 20px 34px rgba(255, 77, 141, 0.22);
-    filter: brightness(1.06);
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 0 26px rgba(103,247,255,0.3), 0 0 34px rgba(255,105,180,0.24);
+    filter: brightness(1.08);
     outline: none;
+}
+
+.secret-reward-link:hover::before,
+.secret-reward-link:focus-visible::before {
+    transform: translateX(120%);
 }
 
 @media (max-width: 768px) {
