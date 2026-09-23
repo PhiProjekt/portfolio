@@ -732,12 +732,12 @@ document.addEventListener("DOMContentLoaded", loadInitialCounts);
 
 // Filmliste exakt an deine Lieblingsfilme mit berühmten Zitaten angepasst
 const movies = [
-    { title: "Pulp Fiction", quote: "\"Any time of the day is a good time for pie.\"" },
-    { title: "The Big Lebowski", quote: "\"The Dude abides.\"" },
-    { title: "Fight Club", quote: "\"The first rule of Fight Club is...\"" },
-    { title: "Gladiator", quote: "\"What we do in life echoes in eternity.\"" },
-    { title: "Wall-E", quote: "\"Eee-va?\"" },
-    { title: "Django Unchained", quote: "\"I like the way you die, boy.\"" }
+    { title: "Pulp Fiction", quote: "\"Mh, das ist ein leckerer Burger.\"" },
+    { title: "The Big Lebowski", quote: "\"Der Dude packt das.\"" },
+    { title: "Fight Club", quote: "\"Alles was du besitzt, besitzt irgendwann dich.\"" },
+    { title: "Gladiator", quote: "\"Was wir im Leben tun, hallt in der Ewigkeit wider.\"" },
+    { title: "Wall-E", quote: "\"Warte, das sieht nicht aus wie die Erde. Wo ist der blaue Himmel? Wo ist das Gras?\"" },
+    { title: "Django Unchained", quote: "\"Mir gefällt, wie du stirbst, Junge.\"" }
 ];
 
 function spinMovieWheel() {
