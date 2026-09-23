@@ -2111,23 +2111,52 @@ p {
         display: flex;
     }
 
+    .value-row {
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+    }
+
+    .value-pill {
+        width: 100%;
+        min-width: 0;
+        justify-content: space-between;
+        padding: 0.8rem 0.9rem;
+        border-radius: 18px;
+        text-align: left;
+    }
+
+    .value-pill-label {
+        flex-shrink: 0;
+    }
+
     .value-pill-hint {
-        left: 50%;
-        right: auto;
-        top: calc(100% + 0.25rem);
-        width: min(200px, calc(100vw - 2rem));
-        max-width: calc(100vw - 2rem);
-        font-size: 0.8rem;
-        padding: 0.7rem 0.8rem;
-        transform: translateX(-50%) translateY(0);
+        position: static;
+        display: inline-flex;
+        width: auto;
+        max-width: none;
+        min-width: 0;
+        opacity: 1;
+        visibility: visible;
+        left: auto;
+        top: auto;
+        transform: none;
+        margin-left: auto;
+        padding: 0.3rem 0.5rem;
+        font-size: 0.72rem;
+        line-height: 1.2;
+        text-align: left;
+        white-space: normal;
         background: #080b12;
         background-color: #080b12;
+        border-radius: 10px;
+        box-shadow: none;
     }
 
     .value-pill.is-activated .value-pill-hint {
-        transform: translateX(-50%) translateY(0);
         opacity: 1;
         visibility: visible;
+        transform: none;
         background: #080b12;
         background-color: #080b12;
     }
