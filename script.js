@@ -297,8 +297,8 @@ function startSecretGame() {
     clearSecretParts();
 
     const secretSymbols = ['C', 'O', 'Z', 'E', 'Y'];
-    const safeWidth = Math.max(220, window.innerWidth - 80);
-    const safeHeight = Math.max(220, window.innerHeight - 120);
+    const pageWidth = Math.max(document.documentElement.scrollWidth, window.innerWidth);
+    const pageHeight = Math.max(document.documentElement.scrollHeight, window.innerHeight);
 
     for (let i = 0; i < secretGame.total; i++) {
         const part = document.createElement('button');
@@ -306,8 +306,8 @@ function startSecretGame() {
         part.className = 'secret-part';
         part.textContent = secretSymbols[i % secretSymbols.length];
 
-        const left = 32 + Math.random() * (safeWidth - 64);
-        const top = 120 + Math.random() * (safeHeight - 140);
+        const left = 40 + Math.random() * Math.max(40, pageWidth - 120);
+        const top = 100 + Math.random() * Math.max(160, pageHeight - 220);
         part.style.left = `${left}px`;
         part.style.top = `${top}px`;
 
