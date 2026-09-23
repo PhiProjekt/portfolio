@@ -206,22 +206,29 @@ const sidebar = document.getElementById('mobileSidebar');
 const closeBtn = document.getElementById('closeBtn');
 const sidebarLinks = document.querySelectorAll('.sidebar.mobile a');
 
-if (hamburger && sidebar) hamburger.onclick = () => {
-    sidebar.classList.add('open');
-    sidebar.style.right = '12px';
+const setSidebarState = (isOpen) => {
+    if (!sidebar || !hamburger) return;
+
+    sidebar.classList.toggle('open', isOpen);
+    hamburger.classList.toggle('is-open', isOpen);
+    sidebar.style.right = isOpen ? '12px' : '-110%';
     sidebar.style.left = 'auto';
 };
-if (closeBtn && sidebar) closeBtn.onclick = () => {
-    sidebar.classList.remove('open');
-    sidebar.style.right = '-110%';
-    sidebar.style.left = 'auto';
-};
-sidebarLinks.forEach(link => {
-    link.onclick = () => {
-        sidebar.classList.remove('open');
-        sidebar.style.right = '-110%';
-        sidebar.style.left = 'auto';
+
+if (hamburger && sidebar) {
+    hamburger.onclick = () => {
+        if (!sidebar.classList.contains('open')) {
+            setSidebarState(true);
+        }
     };
+}
+
+if (closeBtn && sidebar) {
+    closeBtn.onclick = () => setSidebarState(false);
+}
+
+sidebarLinks.forEach(link => {
+    link.onclick = () => setSidebarState(false);
 });
 
 // Allgemeine Aufklapp-Funktion für Sektionen (Workout & Hobbies)
