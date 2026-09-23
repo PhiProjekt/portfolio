@@ -196,16 +196,39 @@ sportBubbles.forEach((bubble) => {
     const setHint = (message) => {
         hint.textContent = message;
         bubble.classList.add('is-activated');
+
+        if (window.innerWidth <= 768) {
+            const bubbleRect = bubble.getBoundingClientRect();
+            const tooltipWidth = Math.min(hint.offsetWidth || 200, window.innerWidth - 24);
+            const centerX = bubbleRect.left + (bubbleRect.width / 2);
+            const desiredLeft = centerX - (tooltipWidth / 2);
+            const left = Math.max(12, Math.min(desiredLeft, window.innerWidth - tooltipWidth - 12));
+
+            hint.style.position = 'fixed';
+            hint.style.left = `${left}px`;
+            hint.style.top = `${bubbleRect.bottom + 10}px`;
+            hint.style.transform = 'none';
+        } else {
+            hint.style.position = 'absolute';
+            hint.style.left = '50%';
+            hint.style.top = 'calc(100% + 0.5rem)';
+            hint.style.transform = 'translateX(-50%) translateY(0)';
+        }
+
         hint.style.opacity = '1';
         hint.style.visibility = 'visible';
-        hint.style.transform = 'translateX(0)';
     };
 
     const clearHint = () => {
         bubble.classList.remove('is-activated');
         hint.style.opacity = '0';
         hint.style.visibility = 'hidden';
-        hint.style.transform = 'translateX(8px)';
+        hint.style.transform = 'translateY(8px)';
+        if (window.innerWidth <= 768) {
+            hint.style.position = 'absolute';
+            hint.style.left = 'auto';
+            hint.style.top = 'calc(100% + 0.5rem)';
+        }
     };
 
     bubble.addEventListener('mouseenter', () => {

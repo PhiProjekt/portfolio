@@ -2108,9 +2108,17 @@ p {
     }
 
     .value-pill-hint {
-        max-width: min(260px, 78vw);
+        left: auto;
+        right: 0;
+        width: min(200px, calc(100vw - 2rem));
+        max-width: calc(100vw - 2rem);
         font-size: 0.8rem;
         padding: 0.7rem 0.8rem;
+        transform: translateY(8px);
+    }
+
+    .value-pill.is-activated .value-pill-hint {
+        transform: translateY(0);
     }
 
     .hero-panel {
