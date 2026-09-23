@@ -175,6 +175,66 @@ function setupAnchorOffsets() {
     });
 }
 
+const sportBubbleMessages = {
+    leistung: ['momentan: 110%', 'nur noch ein bisschen mehr', 'ich liebe Schmerzen, aber nur im guten Sinn'],
+    disziplin: ['nicht heute, sondern jetzt', 'ich habe schon auf den Wecker geschaut', 'Knochen weg, excuses auf Pause'],
+    kontinuität: ['5 Tage geschafft, 2 Tage noch nicht ganz', 'endlich wieder am Ball', 'ich war heute auch mal konsequent'],
+    mentalität: ['ich bin nicht gestresst, ich bin fokussiert', 'kann ich heute noch 3 Sätze schreiben?', 'alles okay, ich habe nur gerade einen inneren Kampf']
+};
+
+const sportBubbles = document.querySelectorAll('.value-pill');
+
+sportBubbles.forEach((bubble) => {
+    const type = bubble.dataset.bubble;
+    const hint = bubble.querySelector('.value-pill-hint');
+    const messages = type && sportBubbleMessages[type] ? sportBubbleMessages[type] : [];
+
+    if (!hint || !messages.length) return;
+
+    let index = 0;
+
+    const setHint = (message) => {
+        hint.textContent = message;
+        bubble.classList.add('is-activated');
+        hint.style.opacity = '1';
+        hint.style.visibility = 'visible';
+        hint.style.transform = 'translateX(0)';
+    };
+
+    const clearHint = () => {
+        bubble.classList.remove('is-activated');
+        hint.style.opacity = '0';
+        hint.style.visibility = 'hidden';
+        hint.style.transform = 'translateX(8px)';
+    };
+
+    bubble.addEventListener('mouseenter', () => {
+        if (!bubble.classList.contains('is-activated')) {
+            setHint(messages[index]);
+        }
+    });
+
+    bubble.addEventListener('mouseleave', () => {
+        if (!bubble.classList.contains('is-popping')) {
+            clearHint();
+        }
+    });
+
+    bubble.addEventListener('click', () => {
+        index = (index + 1) % messages.length;
+        bubble.classList.remove('is-popping');
+        void bubble.offsetWidth;
+        bubble.classList.add('is-popping');
+        setHint(messages[index]);
+
+        clearTimeout(bubble._bubbleTimer);
+        bubble._bubbleTimer = setTimeout(() => {
+            bubble.classList.remove('is-popping');
+            clearHint();
+        }, 1200);
+    });
+});
+
 let themeObserverTargetId = '';
 
 const themeObserver = new IntersectionObserver((entries) => {
