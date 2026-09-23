@@ -193,30 +193,36 @@ sportBubbles.forEach((bubble) => {
 
     let index = 0;
 
-    const setHint = (message) => {
-        hint.textContent = message;
-        bubble.classList.add('is-activated');
-
-        if (window.innerWidth <= 768) {
-            const bubbleRect = bubble.getBoundingClientRect();
-            const tooltipWidth = Math.min(hint.offsetWidth || 200, window.innerWidth - 24);
-            const centerX = bubbleRect.left + (bubbleRect.width / 2);
-            const desiredLeft = centerX - (tooltipWidth / 2);
-            const left = Math.max(12, Math.min(desiredLeft, window.innerWidth - tooltipWidth - 12));
-
-            hint.style.position = 'fixed';
-            hint.style.left = `${left}px`;
-            hint.style.top = `${bubbleRect.bottom + 10}px`;
-            hint.style.transform = 'none';
-        } else {
+    const positionHint = () => {
+        if (window.innerWidth > 768) {
             hint.style.position = 'absolute';
             hint.style.left = '50%';
             hint.style.top = 'calc(100% + 0.5rem)';
             hint.style.transform = 'translateX(-50%) translateY(0)';
+            return;
         }
 
+        const bubbleRect = bubble.getBoundingClientRect();
+        const tooltipWidth = Math.min(hint.getBoundingClientRect().width || 200, window.innerWidth - 24);
+        const centerX = bubbleRect.left + (bubbleRect.width / 2);
+        const desiredLeft = centerX - (tooltipWidth / 2);
+        const clampedLeft = Math.max(12, Math.min(desiredLeft, window.innerWidth - tooltipWidth - 12));
+
+        hint.style.position = 'fixed';
+        hint.style.left = `${clampedLeft}px`;
+        hint.style.top = `${bubbleRect.bottom + 10}px`;
+        hint.style.transform = 'none';
+    };
+
+    const setHint = (message) => {
+        hint.textContent = message;
+        bubble.classList.add('is-activated');
         hint.style.opacity = '1';
         hint.style.visibility = 'visible';
+
+        requestAnimationFrame(() => {
+            positionHint();
+        });
     };
 
     const clearHint = () => {
