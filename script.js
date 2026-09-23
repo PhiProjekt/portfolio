@@ -129,13 +129,17 @@ const Lrc = {
     }
 };
 
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const reduceMotion = prefersReducedMotion.matches;
+
 // KORRIGIERT: Sichere AOS-Initialisierung, um mögliche Fehler abzufangen
 if (typeof AOS !== 'undefined') {
     AOS.init({
-        duration: 700,
+        duration: reduceMotion ? 150 : 700,
         once: true,
-        offset: 30,
-        easing: 'ease-out-cubic'
+        offset: reduceMotion ? 0 : 30,
+        easing: 'ease-out-cubic',
+        disable: reduceMotion
     });
 }
 
@@ -804,6 +808,7 @@ function resetContactForm() {
 const canvas = document.getElementById('ambient-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
+const particleTargetCount = reduceMotion ? 18 : 40;
 
 function initCanvas() {
     canvas.width = window.innerWidth;
@@ -846,7 +851,7 @@ class Particle {
 }
 
 function setupParticles() {
-    particles = Array.from({ length: 40 }, () => new Particle());
+    particles = Array.from({ length: particleTargetCount }, () => new Particle());
 }
 
 function morphParticleColors(theme) {
@@ -867,6 +872,13 @@ function animateParticles() {
         return;
     }
 
+    if (reduceMotion) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => p.draw());
+        particleAnimationId = null;
+        return;
+    }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach(p => {
         p.update();
@@ -878,7 +890,7 @@ function animateParticles() {
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
         if (particleAnimationId) cancelAnimationFrame(particleAnimationId);
-    } else if (!particleAnimationId) {
+    } else if (!reduceMotion && !particleAnimationId) {
         particleAnimationId = requestAnimationFrame(animateParticles);
     }
 });
@@ -894,7 +906,12 @@ window.addEventListener('resize', () => {
 
 initCanvas();
 setupParticles();
-animateParticles();
+if (reduceMotion) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => p.draw());
+} else {
+    animateParticles();
+}
 
 // =========================================================================
 // --- DEVELOPER MINI GAME: BUG SMASHER v5.2 (STABILISIERT) ---
