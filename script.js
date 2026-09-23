@@ -215,9 +215,8 @@ sportBubbles.forEach((bubble) => {
     });
 
     bubble.addEventListener('mouseleave', () => {
-        if (!bubble.classList.contains('is-popping')) {
-            clearHint();
-        }
+        bubble.classList.remove('is-popping');
+        clearHint();
     });
 
     bubble.addEventListener('click', () => {
@@ -231,7 +230,8 @@ sportBubbles.forEach((bubble) => {
         bubble._bubbleTimer = setTimeout(() => {
             bubble.classList.remove('is-popping');
             clearHint();
-        }, 1200);
+            bubble.style.transform = '';
+        }, 1000);
     });
 });
 

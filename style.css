@@ -683,6 +683,10 @@ p {
     animation: bubblePop 0.65s cubic-bezier(0.18, 0.8, 0.2, 1);
 }
 
+.value-pill:not(.is-popping):not(:hover) {
+    transform: translateY(0) scale(1);
+}
+
 .value-pill.is-popping::before {
     opacity: 1;
     transform: scale(1.08);
