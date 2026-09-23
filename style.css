@@ -348,18 +348,11 @@ p {
     background: linear-gradient(135deg, rgba(255,128,167,0.22), rgba(255,255,255,0.06));
     border: 1px solid rgba(255,255,255,0.12);
     box-shadow: 0 12px 28px rgba(8, 13, 22, 0.45);
-    z-index: 50;
+    z-index: 120;
     cursor: pointer;
-    opacity: 0.9;
+    opacity: 1;
     transition: transform 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
 }
-
-.sidebar.mobile.open ~ .hamburger,
-.hamburger:focus-visible {
-    z-index: 40;
-    opacity: 0.25;
-}
-
 .hamburger:hover {
     transform: translateY(-1px);
     border-color: rgba(255,255,255,0.24);
@@ -391,12 +384,17 @@ p {
     flex-direction: column;
     gap: 0.7rem;
     z-index: 90;
-    transition: right 0.35s ease, transform 0.35s ease;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(24px);
+    transition: right 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .sidebar.mobile.open {
     right: 12px;
     left: auto;
+    opacity: 1;
+    pointer-events: auto;
     transform: translateX(0);
     z-index: 90;
 }
