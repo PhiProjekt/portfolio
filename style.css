@@ -369,7 +369,8 @@ p {
 .sidebar.mobile {
     position: fixed;
     top: 12px;
-    left: -110%;
+    right: -110%;
+    left: auto;
     width: min(82vw, 330px);
     height: calc(100vh - 24px);
     background: linear-gradient(180deg, rgba(16, 19, 28, 0.96), rgba(8, 11, 18, 0.96));
@@ -383,12 +384,14 @@ p {
     flex-direction: column;
     gap: 0.7rem;
     z-index: 90;
-    transition: left 0.35s ease, transform 0.35s ease;
+    transition: right 0.35s ease, transform 0.35s ease;
 }
 
 .sidebar.mobile.open {
-    left: 12px;
+    right: 12px;
+    left: auto;
     transform: translateX(0);
+    z-index: 90;
 }
 
 .sidebar.mobile a {
