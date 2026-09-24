@@ -913,6 +913,24 @@ if (reduceMotion) {
     animateParticles();
 }
 
+function hasCoarsePointer() {
+    return window.matchMedia && window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+}
+
+function updateTouchControlsState() {
+    const touchControls = document.getElementById('game-touch-controls');
+    const desktopHint = document.getElementById('game-controls-hint');
+    const showTouchControls = !!touchControls && hasCoarsePointer();
+
+    if (touchControls) {
+        touchControls.style.display = showTouchControls ? 'flex' : 'none';
+    }
+
+    if (desktopHint) {
+        desktopHint.style.display = showTouchControls ? 'none' : 'flex';
+    }
+}
+
 // =========================================================================
 // --- DEVELOPER MINI GAME: BUG SMASHER v5.2 (STABILISIERT) ---
 // =========================================================================
@@ -1144,12 +1162,16 @@ class Game {
             });
         }
 
-        if (joystickZone && window.innerWidth <= 768) {
+        if (joystickZone) {
             let joystickActive = false;
             let joystickPointerId = null;
-            const handle = document.createElement('div');
-            handle.className = 'joystick-handle';
-            joystickZone.appendChild(handle);
+            let handle = joystickZone.querySelector('.joystick-handle');
+
+            if (!handle) {
+                handle = document.createElement('div');
+                handle.className = 'joystick-handle';
+                joystickZone.appendChild(handle);
+            }
 
             const updateJoystick = (clientX) => {
                 const rect = joystickZone.getBoundingClientRect();
@@ -1195,6 +1217,17 @@ class Game {
                 }
             });
         }
+
+        updateTouchControlsState();
+        const pointerMediaQuery = window.matchMedia ? window.matchMedia('(pointer: coarse)') : null;
+        if (pointerMediaQuery) {
+            if (pointerMediaQuery.addEventListener) {
+                pointerMediaQuery.addEventListener('change', updateTouchControlsState);
+            } else if (pointerMediaQuery.addListener) {
+                pointerMediaQuery.addListener(updateTouchControlsState);
+            }
+        }
+        window.addEventListener('resize', updateTouchControlsState, { passive: true });
     }
 }
 
