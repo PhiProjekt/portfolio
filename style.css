@@ -2942,12 +2942,13 @@ p {
         padding-top: 5rem;
     }
 
+}
+
+@media (max-width: 768px) and (pointer: coarse) and (hover: none) {
     .game-touch-controls {
         display: flex;
     }
-}
 
-@media (pointer: coarse) {
     .game-controls-hint {
         display: none;
     }

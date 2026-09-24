@@ -914,7 +914,8 @@ if (reduceMotion) {
 }
 
 function hasCoarsePointer() {
-    return window.matchMedia && window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+    if (!window.matchMedia) return false;
+    return window.matchMedia('(pointer: coarse) and (hover: none)').matches;
 }
 
 function updateTouchControlsState() {
@@ -1238,7 +1239,7 @@ class Game {
         }
 
         updateTouchControlsState();
-        const pointerMediaQuery = window.matchMedia ? window.matchMedia('(pointer: coarse)') : null;
+        const pointerMediaQuery = window.matchMedia ? window.matchMedia('(pointer: coarse) and (hover: none)') : null;
         if (pointerMediaQuery) {
             if (pointerMediaQuery.addEventListener) {
                 pointerMediaQuery.addEventListener('change', updateTouchControlsState);
