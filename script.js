@@ -931,6 +931,25 @@ function updateTouchControlsState() {
     }
 }
 
+function syncGameBoardSize() {
+    const gameContainer = document.getElementById('game-container');
+    if (!gameContainer || !window.gameInstance) return;
+
+    const nextWidth = Math.max(280, gameContainer.clientWidth || 0);
+    const nextHeight = Math.max(180, gameContainer.clientHeight || 0);
+
+    window.gameInstance.width = nextWidth;
+    window.gameInstance.height = nextHeight;
+
+    if (window.gameInstance.player) {
+        window.gameInstance.player.x = Math.min(
+            Math.max(window.gameInstance.player.x, 0),
+            window.gameInstance.width - window.gameInstance.player.width
+        );
+        window.gameInstance.player.y = window.gameInstance.height - window.gameInstance.player.height - 20;
+    }
+}
+
 // =========================================================================
 // --- DEVELOPER MINI GAME: BUG SMASHER v5.2 (STABILISIERT) ---
 // =========================================================================
@@ -1227,7 +1246,13 @@ class Game {
                 pointerMediaQuery.addListener(updateTouchControlsState);
             }
         }
-        window.addEventListener('resize', updateTouchControlsState, { passive: true });
+        window.addEventListener('resize', () => {
+            updateTouchControlsState();
+            syncGameBoardSize();
+        }, { passive: true });
+        window.addEventListener('orientationchange', () => {
+            setTimeout(syncGameBoardSize, 80);
+        });
     }
 }
 
@@ -1240,6 +1265,7 @@ function startGame() {
         }
     }
     if (window.gameInstance) {
+        syncGameBoardSize();
         window.gameInstance.start();
     }
 }
@@ -1250,6 +1276,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const gameContainer = document.getElementById('game-container');
         if (gameContainer) {
             window.gameInstance = new Game(gameContainer.clientWidth, gameContainer.clientHeight);
+            syncGameBoardSize();
         }
     }
 });

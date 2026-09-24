@@ -1867,7 +1867,8 @@ p {
 
 .game-container {
     position: relative;
-    height: 390px;
+    height: clamp(260px, 42vw, 390px);
+    min-height: 260px;
     border-radius: 18px;
     overflow: hidden;
     background:
@@ -2809,6 +2810,34 @@ p {
     .ticket-dispenser {
         order: 3;
         margin-top: 0.2rem;
+    }
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+    .game-wrapper {
+        max-width: 100%;
+        padding: 0.7rem;
+    }
+
+    .game-container {
+        height: min(52vh, 260px);
+        min-height: 200px;
+    }
+
+    .game-touch-controls {
+        gap: 0.7rem;
+        margin-top: 0.7rem;
+    }
+
+    .joystick-zone {
+        width: 110px;
+        height: 96px;
+    }
+
+    .game-touch-controls button {
+        width: min(28vw, 120px);
+        height: 96px;
+        font-size: 1rem;
     }
 }
 
